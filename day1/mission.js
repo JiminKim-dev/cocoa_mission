@@ -20,7 +20,7 @@ function getArea(figure, width, length, height) {
         console.log(Math.trunc(width * width * Math.PI)); 
       }
       break;
-    case 'ract':
+    case 'rect':
       console.log(width * length); 
       break;
     case 'trapezoid':
@@ -40,3 +40,8 @@ getArea('trapezoid', 10, 15, 12);
 console.log('--------');
 
 getArea('circle', 2, 3);
+
+// printExecutionSequence
+function printExecutionSequence() {
+
+}
