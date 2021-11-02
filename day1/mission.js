@@ -1,5 +1,7 @@
-// 결과를 기록하는 배열
-const record = [];
+// 결과를 기록하는 obj에 모양의 값을 저장할 배열과 넓이의 값을 저장할 배열을 추가함
+const record = {};
+record.shape = [];
+record.area = [];
 
 // getArea 함수 만들기
 function getArea(shape, ...size) {
@@ -18,12 +20,14 @@ function getCircle(radius, total) {
     for (let i = 0; i < total; i++) {
       result += Math.trunc((radius + i) * (radius + i) * Math.PI);
     } 
-    record.push('circle');
+    record.shape.push('circle');
+    record.area.push(result);
 
     return result;
   } else {
     const result = Math.trunc(radius * radius * Math.PI); 
-    record.push('circle');
+    record.shape.push('circle');
+    record.area.push(result);
 
     return result
   }
@@ -31,21 +35,25 @@ function getCircle(radius, total) {
 
 function getRectangle(width, length) {
   const result = width * length; 
-  record.push('rect');
+  record.shape.push('rect');
+  record.area.push(result);
 
   return result;
 }
 
 function getTrapezoid(upper, lower, height) {
   const result = 0.5 * (upper + lower) * height;
-  record.push('trapezoid');
+  record.shape.push('trapezoid');
+  record.area.push(result);
 
   return result;
 }
 
 // printExecutionSequence 함수
 function printExecutionSequence() {
-  return record.join(' ');
+  for (let i = 0; i < record.shape.length; i++) {
+    console.log(`${record.shape[i]} ${record.area[i]}`);
+  }
 }
 
 // 함수 출력
