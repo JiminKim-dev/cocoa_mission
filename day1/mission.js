@@ -1,24 +1,23 @@
-// 결과를 기록하는 obj에 모양을 저장할 배열과 넓이를 저장할 배열을 추가함
-const record = {
-  'shape': [],
-  'area' : []
-};
+// 모양과 넓이를 저장할 배열을 추가함
+const record = [];
 
-// getArea 함수 만들기
+// getArea 함수
 function getArea(shape, ...size) {
-  if (shape === 'circle') {
-    return getCircle(...size)
-  } 
-  else if (shape === 'rect') {
-    return getRectangle(...size)
-  } 
-  else if (shape === 'trapezoid') {
-    return getTrapezoid(...size)
-  } 
-  else {
-    const errorMessage = '원, 사각형, 사다리꼴의 넓이만 구할 수 있습니다.'
-    return errorMessage;
+  let result = '';
+  switch (shape) {
+    case 'circle':
+      result = getCircle(...size);
+      break;
+    case 'rect':
+      result = getRectangle(...size);
+      break;
+    case 'trapezoid':
+      result = getTrapezoid(...size);
+      break;
+    default:
+      console.log('원, 사각형, 사다리꼴의 넓이만 구할 수 있습니다.'); 
   }
+  return record.push(`${shape}: ${result}`)
 }
 
 // 원의 넓이, 원의 넓이의 총합
@@ -27,16 +26,10 @@ function getCircle(radius, total) {
     let result = 0;
     for (let i = 0; i < total; i++) {
       result += Math.trunc((radius + i) * (radius + i) * Math.PI);
-    } 
-    record.shape.push('circle');
-    record.area.push(result);
-
+    }
     return result;
   } else {
-    const result = Math.trunc(radius * radius * Math.PI); 
-    record.shape.push('circle');
-    record.area.push(result);
-
+    const result = Math.trunc(radius * radius * Math.PI);
     return result
   }
 }
@@ -44,30 +37,23 @@ function getCircle(radius, total) {
 // 사각형의 넓이
 function getRectangle(width, length) {
   const result = width * length; 
-  record.shape.push('rect');
-  record.area.push(result);
-
   return result;
 }
 
 // 사다리꼴의 넓이
 function getTrapezoid(upper, lower, height) {
   const result = 0.5 * (upper + lower) * height;
-  record.shape.push('trapezoid');
-  record.area.push(result);
-
   return result;
 }
 
-// printExecutionSequence 함수
+// printExecutionSequence 함수: 배열 record를 출력함
 function printExecutionSequence() {
-  for (let i = 0; i < record.shape.length; i++) {
-    console.log(`${record.shape[i]} ${record.area[i]}`);
-  }
+  record.forEach(results => {
+    console.log(results);
+  });
 }
 
 // 함수 출력
-
 console.log(getArea('hello'));
 console.log(getArea('circle', 10));
 console.log(getArea('rect', 10, 15));
