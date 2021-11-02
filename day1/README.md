@@ -10,10 +10,10 @@
 
 ### getArea 함수
 
-1. return을 사용하면 switch 문의 break가 작동하지 않아서 console.log를 사용했다. 
+1. return을 사용하면 switch 문의 break가 작동하지 않아서 [console.log를 사용](https://github.com/JiminKim-dev/kokoa_mission/commit/1aedddd115ec80a945a065d048fed7a75768fc30#diff-8e7b8b0bb91d94c103ed0288e63e90a57a4ef5fbbaf2a05e85b0eb3866e2fd3d)했다. 
 
-~~👉 if else문을 사용해서 return을 사용했다.~~   
-👉👉 return을 switch문 안에 사용하지 않고 밖으로 뺐다.
+~~👉 switch문을 [if else문](https://github.com/JiminKim-dev/kokoa_mission/commit/bd2d6d16e8fbb16c564b320914bcc53a0de9c0c6#diff-8e7b8b0bb91d94c103ed0288e63e90a57a4ef5fbbaf2a05e85b0eb3866e2fd3d)으로 변경하여 return을 사용했다.~~   
+👉👉 다시 [switch문](https://github.com/JiminKim-dev/kokoa_mission/commit/55ee0d7e5ec591562eb53f1687b18c5d5c11931a#diff-8e7b8b0bb91d94c103ed0288e63e90a57a4ef5fbbaf2a05e85b0eb3866e2fd3d)으로 변경함, 대신 return을 switch문 안에 넣지 않고 밖으로 뺐다.
 
 2. [매개변수 이름의 오류](https://github.com/JiminKim-dev/kokoa_mission/commit/8e9a4abd8960689ee85f21f73cb064a89e69c917#diff-8e7b8b0bb91d94c103ed0288e63e90a57a4ef5fbbaf2a05e85b0eb3866e2fd3d) (shape, **width,** length, height)
 
@@ -40,7 +40,7 @@ function getRectangle(width, length) {
   return result;
 }
 ```
-이런식으로 모양의 값과 넓이를 따로 저장하는 방법을 선택했다.
+이런식으로 모양과 넓이를 따로 저장하는 방법을 선택했다.
 
 ```JS
 function printExecutionSequence() {
@@ -122,7 +122,7 @@ else if (shape === 'rect') {
     return getTrapezoid(...size)
   }
 ```
-[else if 다음에 if를 넣는 실수](https://github.com/JiminKim-dev/kokoa_mission/commit/eefb4aaad02c6425f1a791fff8d43bca859a2a8e#) 를 수정하다가 [else 문에 조건을 넣는 실수](https://github.com/JiminKim-dev/kokoa_mission/commit/6bfceaaf8db2e36912b2fc0217e76efb1487f6f9#diff-8e7b8b0bb91d94c103ed0288e63e90a57a4ef5fbbaf2a05e85b0eb3866e2fd3d) 를 저질렀다. 👀
+[else if 다음에 if를 넣는 실수](https://github.com/JiminKim-dev/kokoa_mission/commit/bd2d6d16e8fbb16c564b320914bcc53a0de9c0c6#diff-8e7b8b0bb91d94c103ed0288e63e90a57a4ef5fbbaf2a05e85b0eb3866e2fd3d) 를 수정하다가 [else에 조건을 넣는 실수](https://github.com/JiminKim-dev/kokoa_mission/commit/6bfceaaf8db2e36912b2fc0217e76efb1487f6f9#diff-8e7b8b0bb91d94c103ed0288e63e90a57a4ef5fbbaf2a05e85b0eb3866e2fd3d) 를 저질렀다. 👀
 
 
 
