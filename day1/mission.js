@@ -8,9 +8,11 @@ const record = {
 function getArea(shape, ...size) {
   if (shape === 'circle') {
     return getCircle(...size)
-  } else if (shape === 'rect') {
+  } 
+  else if (shape === 'rect') {
     return getRectangle(...size)
-  } if (shape === 'trapezoid') {
+  } 
+  else (shape === 'trapezoid') {
     return getTrapezoid(...size)
   }
 }
