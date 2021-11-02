@@ -1,7 +1,8 @@
-// 결과를 기록하는 obj에 모양의 값을 저장할 배열과 넓이의 값을 저장할 배열을 추가함
-const record = {};
-record.shape = [];
-record.area = [];
+// 결과를 기록하는 obj에 모양을 저장할 배열과 넓이를 저장할 배열을 추가함
+const record = {
+  'shape': [],
+  'area' : []
+};
 
 // getArea 함수 만들기
 function getArea(shape, ...size) {
@@ -14,6 +15,7 @@ function getArea(shape, ...size) {
   }
 }
 
+// 원의 넓이, 원의 넓이의 총합
 function getCircle(radius, total) {
   if (total !== undefined) {
     let result = 0;
@@ -33,6 +35,7 @@ function getCircle(radius, total) {
   }
 }
 
+// 사각형의 넓이
 function getRectangle(width, length) {
   const result = width * length; 
   record.shape.push('rect');
@@ -41,6 +44,7 @@ function getRectangle(width, length) {
   return result;
 }
 
+// 사다리꼴의 넓이
 function getTrapezoid(upper, lower, height) {
   const result = 0.5 * (upper + lower) * height;
   record.shape.push('trapezoid');
@@ -61,4 +65,4 @@ console.log(getArea('circle', 10));
 console.log(getArea('rect', 10, 15));
 console.log(getArea('trapezoid', 10, 15, 12));
 console.log(getArea('circle', 2, 3));
-console.log(printExecutionSequence());
+printExecutionSequence();
