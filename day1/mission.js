@@ -3,14 +3,11 @@ function getArea(shape, width, length, height) {
   switch (shape) {
     case 'circle':
       if (length !== undefined) {
-        const arr = [];
+        let result = 0;
         for (let i = 0; i < length; i++) {
-          const result = Math.trunc((width + i) * (width + i) * Math.PI);
-          arr.push(result);
+          result += Math.trunc((width + i) * (width + i) * Math.PI);
         } 
-
-        const sum = arr.reduce((a, b) => a + b);
-        console.log(sum);
+        console.log(result);
       } else {
         console.log(Math.trunc(width * width * Math.PI)); 
       }
@@ -27,11 +24,11 @@ function getArea(shape, width, length, height) {
 
 // 함수 출력
 getArea('circle', 10);
-getArea('ract', 10, 15);
+getArea('rect', 10, 15);
 getArea('trapezoid', 10, 15, 12);
 getArea('circle', 2, 3);
 
 // printExecutionSequence
 function printExecutionSequence() {
-
+  // 완료 못함..
 }
