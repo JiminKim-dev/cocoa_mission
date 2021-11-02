@@ -12,8 +12,12 @@ function getArea(shape, ...size) {
   else if (shape === 'rect') {
     return getRectangle(...size)
   } 
-  else (shape === 'trapezoid') {
+  else if (shape === 'trapezoid') {
     return getTrapezoid(...size)
+  } 
+  else {
+    const errorMessage = '원, 사각형, 사다리꼴의 넓이만 구할 수 있습니다.'
+    return errorMessage;
   }
 }
 
@@ -63,6 +67,8 @@ function printExecutionSequence() {
 }
 
 // 함수 출력
+
+console.log(getArea('hello'));
 console.log(getArea('circle', 10));
 console.log(getArea('rect', 10, 15));
 console.log(getArea('trapezoid', 10, 15, 12));
