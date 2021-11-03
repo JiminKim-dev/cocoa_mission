@@ -17,7 +17,9 @@ function getArea(shape, ...size) {
     default:
       console.log('원, 사각형, 사다리꼴의 넓이만 구할 수 있습니다.'); 
   }
-  return record.push(`${shape}: ${result}`)
+
+  record.push(`${shape} ${result}`);
+  return result
 }
 
 // 원의 넓이, 원의 넓이의 총합
@@ -54,7 +56,6 @@ function printExecutionSequence() {
 }
 
 // 함수 출력
-console.log(getArea('hello'));
 console.log(getArea('circle', 10));
 console.log(getArea('rect', 10, 15));
 console.log(getArea('trapezoid', 10, 15, 12));
