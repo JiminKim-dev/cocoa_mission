@@ -19,13 +19,13 @@ const peoples = ["crong!@#", "honux5", "sarah#", "hea3d", "zello", "5lucas"];
 
 // for문 사용
 function filterId1(peoples) {
-  const reg1 = /^[a-zA-z0-9]*$/;
-  const reg2 = /[0-9]/;
+  const regCharNum = /^[a-zA-z0-9]*$/;
+  const regNum = /[0-9]/;
 
   const result = [];
   for (let i = 0; i < peoples.length; i++) {
-    if (reg1.test(peoples[i]) === true) {
-      result.push(peoples[i].replace(reg2, ''));
+    if (regCharNum.test(peoples[i]) === true) {
+      result.push(peoples[i].replace(regNum, ''));
     }
   }
   return result;
@@ -35,12 +35,12 @@ console.log(filterId1(peoples));
 
 // 고차함수 사용: filter. map
 function filterId2(peoples) {
-  const reg1 = /^[a-zA-z0-9]*$/;
-  const reg2 = /[0-9]/;
+  const regCharNum = /^[a-zA-z0-9]*$/;
+  const regNum = /[0-9]/;
 
   const results = peoples
-  .filter(filter => reg1.test(filter))
-  .map(rmNum => rmNum.replace(reg2, ''));
+  .filter(filter => regCharNum.test(filter))
+  .map(rmNum => rmNum.replace(regNum, ''));
 
   return results;
 }
@@ -52,30 +52,22 @@ const grades = [[88,76,77], [33,44,44], [90,100,94], [30,44,98]];
 
 // 3-1 각 학생의 평균점수를 구하는 함수, 코드 개선 필요
 function getEachAvg(grades) {
-  const arr = [];
+  const result = [];
   for (let i = 0; i < grades.length; i++) {
-    let result = Math.trunc(grades[i].reduce((pre, cur) => pre + cur) / grades[i].length);
-    arr.push(result);
+    result.push(Math.trunc(grades[i].reduce((acc, cur) => acc + cur) / grades[i].length));
   }
-  return arr;
+  return result;
 }
 
 console.log(getEachAvg(grades));
 
 // 3-2 모든 학생의 최고점수의 평균점수, 코드 개선 필요
 function getMaxAvg(grades) {
-  const arr = [];
-
+  const maxGrade = [];
   for (let i = 0; i < grades.length; i++) {
-    let max = Math.max(...grades[i]);
-    arr.push(max);
+    maxGrade.push(Math.max(...grades[i]));
   }
-
-  const result = arr.reduce((arr, cur) => {
-    return (arr + cur);
-  }, 0);
-
-  return result / arr.length;
+  return maxGrade.reduce((acc, cur) => acc + cur) / maxGrade.length;
 }
 
 console.log(getMaxAvg(grades));
