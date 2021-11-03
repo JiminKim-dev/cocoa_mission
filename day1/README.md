@@ -101,6 +101,27 @@ function getArea(shape, ...size) {
 ```
 그래서 변수 result에 도형 함수에서 리턴한 값을 부여해서 shape와 같이 배열에 저장되도록 수정하였다.
 
+5. getArea 오류 수정
+
+console.log로 getArea 함수를 출력하면 값이 아닌 [순서가 출력되는 오류](https://github.com/JiminKim-dev/kokoa_mission/commit/55ee0d7e5ec591562eb53f1687b18c5d5c11931a#diff-8e7b8b0bb91d94c103ed0288e63e90a57a4ef5fbbaf2a05e85b0eb3866e2fd3d)가 발생했다.
+```JS
+function getArea(shape, ...size) {
+  let result = '';
+  switch (shape) {
+    case 'circle':
+      result = getCircle(...size);
+      break;
+  /* 이하 생략 */
+
+  }
+
+  record.push(`${shape} ${result}`);
+  return result
+}
+```
+push를 먼저하고 결과를 반환하도록 수정했다.
+
+
 ### 치명적이진 않지만 사소한 오류(실수)
 
 1. [코드는 정상적으로 작동하나 마지막에 undefined가 출력되는 현상](https://github.com/JiminKim-dev/kokoa_mission/commit/a5f66ad46512e7fa9ce3373a71fe1586165e21e4#diff-8e7b8b0bb91d94c103ed0288e63e90a57a4ef5fbbaf2a05e85b0eb3866e2fd3d)
