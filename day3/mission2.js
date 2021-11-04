@@ -38,11 +38,11 @@ function filterId2(peoples) {
   const regCharNum = /^[a-zA-z0-9]*$/;
   const regNum = /[0-9]/;
 
-  const results = peoples
+  const result = peoples
   .filter(filter => regCharNum.test(filter))
   .map(rmNum => rmNum.replace(regNum, ''));
 
-  return results;
+  return result;
 }
 
 console.log(filterId2(peoples));
@@ -50,24 +50,30 @@ console.log(filterId2(peoples));
 // 3. 평균 구하기 : 다차원 배열, reduce
 const grades = [[88,76,77], [33,44,44], [90,100,94], [30,44,98]];
 
-// 3-1 각 학생의 평균점수를 구하는 함수, 코드 개선 필요
+// 배열의 평균을 구하는 함수
+function getAvg(arr) {
+  const result = arr.reduce((pre, cur) => pre + cur) / arr.length;
+  return result
+}
+
+// 3-1 각 학생의 평균점수를 구하는 함수
 function getEachAvg(grades) {
   const result = [];
   for (let i = 0; i < grades.length; i++) {
-    result.push(Math.trunc(grades[i].reduce((acc, cur) => acc + cur) / grades[i].length));
+    result.push(getAvg(grades[i]));
   }
   return result;
 }
 
 console.log(getEachAvg(grades));
 
-// 3-2 모든 학생의 최고점수의 평균점수, 코드 개선 필요
+// 3-2 모든 학생의 최고점수의 평균 점수 출력하기
 function getMaxAvg(grades) {
   const maxGrade = [];
   for (let i = 0; i < grades.length; i++) {
     maxGrade.push(Math.max(...grades[i]));
   }
-  return maxGrade.reduce((acc, cur) => acc + cur) / maxGrade.length;
+  return getAvg(maxGrade);
 }
 
 console.log(getMaxAvg(grades));
