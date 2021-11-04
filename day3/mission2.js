@@ -54,9 +54,9 @@ function getAvg(arr) {
 // 3-1 각 학생의 평균점수를 구하는 함수
 function getEachAvg(grades) {
   const result = [];
-  for (let i = 0; i < grades.length; i++) {
-    result.push(getAvg(grades[i]));
-  }
+  grades.forEach(grades => {
+    result.push(Math.trunc(getAvg(grades)))
+  })
   return result;
 }
 
@@ -65,9 +65,9 @@ console.log(getEachAvg(grades));
 // 3-2 모든 학생의 최고점수의 평균 점수 출력하기
 function getMaxAvg(grades) {
   const maxGrade = [];
-  for (let i = 0; i < grades.length; i++) {
-    maxGrade.push(Math.max(...grades[i]));
-  }
+  grades.forEach(grades => {
+    maxGrade.push(Math.max(...grades))
+  });
   return getAvg(maxGrade);
 }
 
@@ -101,11 +101,10 @@ const data = {
   }
 }
 
-function NumberTypeData(data) {
+function numberTypeData(data) {
   const arr = [];
-
   for (const key in data) {
-    Object.entries(data[key]).map(([key, value]) => {
+    Object.entries(data[key]).forEach(([key, value]) => {
       if (typeof value === 'number') {
         arr.push(key);
       } 
@@ -114,4 +113,23 @@ function NumberTypeData(data) {
   return arr;
 }
 
-console.log(NumberTypeData(data));
+console.log(numberTypeData(data));
+
+// ----------------- 5. 배열 결과 출력 -----------------
+// json 파일을 불러오기 (동기)
+const fs = require('fs');
+const jsonData = JSON.parse(fs.readFileSync('./day3/mission2-5.json', 'utf8'));
+
+function findData(data) {
+  const result = [];
+  data.forEach(arr => {
+    if (arr['type']  === 'sk') {
+      result.push(arr['name']);
+    }
+    // 미완성
+  }); 
+
+  return result;
+}
+
+console.log(findData(jsonData));
