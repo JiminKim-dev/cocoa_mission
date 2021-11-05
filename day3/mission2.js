@@ -49,21 +49,14 @@ const getAvg = (arr) => {
 
 // 3-1 각 학생의 평균점수를 구하는 함수
 function getEachAvg(grade) {
-  const result = [];
-  grade.forEach(grade => {
-    result.push(Math.trunc(getAvg(grade)))
-  })
-  return result;
+  return grade.map(grade => Math.trunc(getAvg(grade)))
 }
 
 console.log(getEachAvg(grades));
 
 // 3-2 모든 학생의 최고점수의 평균 점수 출력하기
 function getMaxAvg(grade) {
-  const maxGrade = [];
-  grade.forEach(grade => {
-    maxGrade.push(Math.max(...grade))
-  });
+  const maxGrade = grade.map(grade => Math.max(...grade));
   return getAvg(maxGrade);
 }
 
