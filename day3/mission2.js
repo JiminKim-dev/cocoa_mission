@@ -1,14 +1,14 @@
 // ----------------- 1. factorial 함수 -----------------
-function factorial(n) {
-  const factorial = [];
+function factorial(m) {
+  const resultArr = [];
 
   let result = 1;
-  for (let i = 1; i <= n; i++) {
+  for (let i = 1; i <= m; i++) {
     result *= i;
-    factorial.push(result);
+    resultArr.push(result);
   }
 
-  return factorial
+  return resultArr;
 }
 
 console.log(factorial(4));
@@ -19,11 +19,11 @@ const peoples = ["crong!@#", "honux5", "sarah#", "hea3d", "zello", "5lucas"];
 const regCharNum = /^[a-zA-z0-9]*$/;
 
 // for문 사용
-function filterId1(peoples) {
+function filterId1(id) {
   const result = [];
-  for (let i = 0; i < peoples.length; i++) {
-    if (regCharNum.test(peoples[i])) {
-      result.push(peoples[i].replace(/[0-9]/, ''));
+  for (let i = 0; i < id.length; i++) {
+    if (regCharNum.test(id[i])) {
+      result.push(id[i].replace(/[0-9]/, ''));
     }
   }
   return result;
@@ -32,12 +32,9 @@ function filterId1(peoples) {
 console.log(filterId1(peoples));
 
 // 고차함수 사용: filter. map
-function filterId2(peoples) {
-  const result = peoples
-  .filter(filter => regCharNum.test(filter))
+const filterId2 = (id) => { 
+  return id.filter(filter => regCharNum.test(filter))
   .map(rmNum => rmNum.replace(/[0-9]/, ''));
-
-  return result;
 }
 
 console.log(filterId2(peoples));
@@ -46,16 +43,15 @@ console.log(filterId2(peoples));
 const grades = [[88,76,77], [33,44,44], [90,100,94], [30,44,98]];
 
 // 배열의 평균을 구하는 함수
-function getAvg(arr) {
-  const result = arr.reduce((pre, cur) => pre + cur) / arr.length;
-  return result
+const getAvg = (arr) => {
+  return arr.reduce((pre, cur) => pre + cur) / arr.length;
 }
 
 // 3-1 각 학생의 평균점수를 구하는 함수
-function getEachAvg(grades) {
+function getEachAvg(grade) {
   const result = [];
-  grades.forEach(grades => {
-    result.push(Math.trunc(getAvg(grades)))
+  grade.forEach(grade => {
+    result.push(Math.trunc(getAvg(grade)))
   })
   return result;
 }
@@ -63,10 +59,10 @@ function getEachAvg(grades) {
 console.log(getEachAvg(grades));
 
 // 3-2 모든 학생의 최고점수의 평균 점수 출력하기
-function getMaxAvg(grades) {
+function getMaxAvg(grade) {
   const maxGrade = [];
-  grades.forEach(grades => {
-    maxGrade.push(Math.max(...grades))
+  grade.forEach(grade => {
+    maxGrade.push(Math.max(...grade))
   });
   return getAvg(maxGrade);
 }
