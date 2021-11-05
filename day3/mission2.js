@@ -120,16 +120,17 @@ console.log(numberTypeData(data));
 const fs = require('fs');
 const jsonData = JSON.parse(fs.readFileSync('./day3/mission2-5.json', 'utf8'));
 
+const result = [];
 function findData(data) {
-  const result = [];
-  data.forEach(arr => {
-    if (arr['type']  === 'sk') {
-      result.push(arr['name']);
+  data.forEach(obj => {
+    if (obj['type']  === 'sk') {
+      result.push(obj['name']);
     }
-    // 미완성
+    if (typeof obj['childnode'] === 'object') {
+      findData(obj['childnode']);
+    }
   }); 
-
+  
   return result;
 }
-
 console.log(findData(jsonData));
