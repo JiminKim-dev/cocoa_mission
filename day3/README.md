@@ -4,9 +4,9 @@
 
 ### forEach와 map 
 
-1. for문을 사용한 기존 코드
+#### [1. for문을 사용한 기존 코드](https://github.com/JiminKim-dev/cocoa_mission/commit/a56947414274bcc504479afb64570a7ad09bcb13#diff-23899ff2dc907164431d4bee2370e33f3b3cc56f9d88def4ee83a6897f93af54)
 ```JS
-// 3. 평균 구하기
+// [3. 평균 구하기](https://github.com/JiminKim-dev/cocoa_mission/commit/ccaba5286ee06179d285f860913478953c1e5174#diff-23899ff2dc907164431d4bee2370e33f3b3cc56f9d88def4ee83a6897f93af54)
 function getEachAvg(grades) {
   const result = [];
   for (let i = 0; i < grades.length; i++) {
@@ -15,7 +15,7 @@ function getEachAvg(grades) {
   return result;
 }
 ```
-2. for문을 forEach로 변경
+#### [2. for문을 forEach로 변경](https://github.com/JiminKim-dev/cocoa_mission/commit/ccaba5286ee06179d285f860913478953c1e5174#diff-23899ff2dc907164431d4bee2370e33f3b3cc56f9d88def4ee83a6897f93af54)
 
 
 ```js
@@ -28,20 +28,20 @@ function getEachAvg(grades) {
   return result;
 }
 ```
-각 학생의 평균점수를 구하는 함수 안의 for문을 개선하기 위해 [forEach](https://github.com/JiminKim-dev/cocoa_mission/commit/ccaba5286ee06179d285f860913478953c1e5174#diff-770332a0a44b8a50e404130b8b553d196b913cc14436d74c1f4acbe128c5e0d4)를 사용했다. 이전에 작성했던 for문과 큰 차이없이 빈 배열에 push하는 방법을 택했다. 
+각 학생의 평균점수를 구하는 함수 안의 for문을 개선하기 위해 forEach를 사용했다. 이전에 작성했던 for문과 큰 차이없이 빈 배열에 push하는 방법을 택했다. 
 
-3. forEach를 map으로 변경
+#### [3. forEach를 map으로 변경](https://github.com/JiminKim-dev/cocoa_mission/commit/dee68cdbf0f7b2cd8406f33c1617a38a1a81363f#diff-23899ff2dc907164431d4bee2370e33f3b3cc56f9d88def4ee83a6897f93af54)
 ```js
 // 3. 평균 구하기
 function getEachAvg(grade) {
   return grade.map(grade => Math.trunc(getAvg(grade)))
 }
 ```
-  map 메서드를 사용하면 빈 배열에 일일이 push하는 방법을 사용하지 않고도 함수의 결과를 모아 새로운 배열을 리턴할 수 있기 때문에 [map](https://github.com/JiminKim-dev/cocoa_mission/commit/dee68cdbf0f7b2cd8406f33c1617a38a1a81363f#diff-23899ff2dc907164431d4bee2370e33f3b3cc56f9d88def4ee83a6897f93af54)으로 변경해주었다.
+  고차함수 map를 사용하면 빈 배열에 일일이 push하는 방법을 사용하지 않고도 함수의 결과를 모아 새로운 배열을 리턴할 수 있기 때문에 map으로 변경해주었다.
 
 
 
-### 함수명/배열명과 동일한 변수명과 매개변수명
+### [함수명/배열명과 동일한 변수명과 매개변수명](https://github.com/JiminKim-dev/cocoa_mission/commit/a56947414274bcc504479afb64570a7ad09bcb13#diff-23899ff2dc907164431d4bee2370e33f3b3cc56f9d88def4ee83a6897f93af54)
 
 코드리뷰를 받으면서 조언 받았던 부분이다.
 
@@ -67,7 +67,7 @@ function filterId1(peoples) {
   }
 ```
 
-코드는 정상적으로 작동하지만 좋은 변수명이 아니다. 추후에 문제가 생길 수도 있으니까 함수명와 배열명에 겹치지 않는 [좀 더 의미있는 이름로 바꿔주었다.](https://github.com/JiminKim-dev/cocoa_mission/commit/4c0f7a4432294c596e31f0b3721a66297922895a#diff-770332a0a44b8a50e404130b8b553d196b913cc14436d74c1f4acbe128c5e0d4)
+코드는 정상적으로 작동하지만 좋은 변수명이 아니다. 추후에 문제가 생길 수도 있으니까 함수명과 배열명에 겹치지 않는 [좀 더 의미있는 이름로 바꿔주었다.](https://github.com/JiminKim-dev/cocoa_mission/commit/4c0f7a4432294c596e31f0b3721a66297922895a#diff-770332a0a44b8a50e404130b8b553d196b913cc14436d74c1f4acbe128c5e0d4)
 
 ### 화살표 함수
 화살표 함수 또한 코드리뷰를 받으면서 조언 받았던 부분이다.
@@ -111,7 +111,7 @@ const getAvg = (arr) => {
 }
 ```
 
-대신 화살표 함수는 함수 선언문에서는 사용이 불가능하고 함수 표현식에서만 사용할 수 있기 때문에 기존 함수를 함수 표현식의 형태로 변경한 뒤 [화살표 함수를 작성했다.](https://github.com/JiminKim-dev/cocoa_mission/commit/4c0f7a4432294c596e31f0b3721a66297922895a#diff-23899ff2dc907164431d4bee2370e33f3b3cc56f9d88def4ee83a6897f93af54)
+대신 화살표 함수는 함수 선언문에서는 사용이 불가능하고 함수 표현식에서만 사용할 수 있기 때문에 기존 함수를 함수 표현식의 형태로 변경한 뒤 [화살표 함수](https://github.com/JiminKim-dev/cocoa_mission/commit/4c0f7a4432294c596e31f0b3721a66297922895a#diff-23899ff2dc907164431d4bee2370e33f3b3cc56f9d88def4ee83a6897f93af54)를 작성했다.
 
 
 ---
