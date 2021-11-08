@@ -111,7 +111,7 @@ const getAvg = (arr) => {
 }
 ```
 
-대신 화살표 함수는 함수 선언문에서는 사용이 불가능하고 함수 표현식에서만 사용할 수 있기 때문에 기존 함수를 함수 표현식의 형태로 변경한 뒤 [화살표 함수](https://github.com/JiminKim-dev/cocoa_mission/commit/4c0f7a4432294c596e31f0b3721a66297922895a#diff-23899ff2dc907164431d4bee2370e33f3b3cc56f9d88def4ee83a6897f93af54)를 작성했다.
+화살표 함수는 함수 선언문에서는 사용이 불가능하고 함수 표현식에서만 사용할 수 있기 때문에 기존 함수를 함수 표현식의 형태로 변경한 뒤 [화살표 함수](https://github.com/JiminKim-dev/cocoa_mission/commit/4c0f7a4432294c596e31f0b3721a66297922895a#diff-23899ff2dc907164431d4bee2370e33f3b3cc56f9d88def4ee83a6897f93af54)를 작성했다.
 
 
 ---
