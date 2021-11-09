@@ -10,22 +10,10 @@ function getHashCode(key, tableSize) {
 // 해시맵
 function hashMap() {
   this.map = new Object();
-  // this.storage = new Array(12); // 인덱스의 총 개수
 
   // put(key, value) 키-값을 추가한다.
-  hashMap.prototype.put = (key, value) => {   
-    this.map[key] = value;
-
-    // 어우 복잡해 해시코드 잠시 보류
-    /* 
-    // getHashCode를 사용하여 반환받은 해시코드를 배열의 인덱스로 환산한다.
-    const index = getHashCode(key, this.storage.length);
-
-    // 해시충돌시...
-    // index에 값이 있는지 확인: index가 비어있지않으면 push로 키와 값을 배열의 형태로 넣어준다.
-    this.storage[index] != null ? 
-    this.storage[index].push([key, value]) : this.storage[index] = [[key, value]];
-    */
+  hashMap.prototype.put = (key, value) => {
+    return !this.map[key] ? this.map[key] = value : console.log(`${key}은(는) 이미 존재하는 값입니다.`);
   }
   
   // remove(String key) 해당 키에 있는 값을 삭제한다.
@@ -35,11 +23,7 @@ function hashMap() {
   
   // containsKey(String) 해당 키가 존재하는지 판단해서 Bool 결과를 리턴한다.
   hashMap.prototype.containsKey = (key) => {
-    if(!this.map[key]) {
-      return false;
-    } else {
-      return true;
-    }
+    return !this.map[key] ? false : true;
   }
   
   // get(String) 해당 키와 매치되는 값을 찾아서 리턴한다.
@@ -49,11 +33,7 @@ function hashMap() {
 
   // isEmpty() 비어있는 맵인지 Bool 결과를 리턴한다.
   hashMap.prototype.isEmpty = () => {
-    if (Object.entries(this.map).length === 0) {
-      return true
-    } else {
-      return false
-    }
+    return Object.entries(this.map).length === 0 ? true : false;
   }
 
   // keys() 전체 키 목록을 [String] 배열로 리턴한다.
@@ -63,7 +43,7 @@ function hashMap() {
 
   // replace(String key, String value) 키-값으로 기존 값을 대체한다.
   hashMap.prototype.replace = (key, value) => {
-    this.map[key] = value;
+    return this.map[key] ? this.map[key] = value : console.log(`${key}와(과) ${value}을 대체할 값이 없습니다.`);
   }
   // size() 전체 아이템 개수를 리턴한다.
   hashMap.prototype.size = () => {
@@ -84,10 +64,12 @@ menu.put('Chicken', '4000원');
 menu.put('된장찌개', '1000원');
 menu.put('제육덮밥', '3500원');
 console.table(menu);
+menu.put('Pizza', '6000원');
 
 console.log(`해당하는 키와 매치되는 값: ${menu.get('Pizza')}`);
 
 menu.replace('Chicken', '18000원');
+menu.replace('마라탕', '5000원');
 menu.remove('Pizza');
 console.table(menu);
 
