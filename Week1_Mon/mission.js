@@ -6,44 +6,50 @@ function getArea(shape, ...size) {
   let result = '';
   switch (shape) {
     case 'circle':
-      result = getCircle(...size);
+      if (size[1] !== undefined) {
+        result = getIncreaseCircleArea(...size);
+        break;
+      }
+      result = getCircleArea(...size); 
       break;
     case 'rect':
-      result = getRectangle(...size);
+      result = getRectangleArea(...size);
       break;
     case 'trapezoid':
-      result = getTrapezoid(...size);
+      result = getTrapezoidArea(...size);
       break;
     default:
-      console.log('원, 사각형, 사다리꼴의 넓이만 구할 수 있습니다.'); 
+      return console.log('원, 사각형, 사다리꼴의 넓이만 구할 수 있습니다.'); 
   }
 
   record.push(`${shape} ${result}`);
   return result
 }
 
-// 원의 넓이, 원의 넓이의 총합
-function getCircle(radius, total) {
-  if (total !== undefined) {
-    let result = 0;
-    for (let i = 0; i < total; i++) {
-      result += Math.trunc((radius + i) * (radius + i) * Math.PI);
-    }
-    return result;
-  } else {
-    const result = Math.trunc(radius * radius * Math.PI);
-    return result
+
+// 원의 넓이
+function getCircleArea(radius) {
+  const result = Math.trunc(radius * radius * Math.PI);
+  return result
+}
+
+// 원의 넓이의 총합
+function getIncreaseCircleArea(radius, total) {
+  let result = 0;
+  for (let i = 0; i < total; i++) {
+    result += Math.trunc((radius + i) * (radius + i) * Math.PI);
   }
+  return result;
 }
 
 // 사각형의 넓이
-function getRectangle(width, length) {
+function getRectangleArea(width, length) {
   const result = width * length; 
   return result;
 }
 
 // 사다리꼴의 넓이
-function getTrapezoid(upper, lower, height) {
+function getTrapezoidArea(upper, lower, height) {
   const result = 0.5 * (upper + lower) * height;
   return result;
 }
@@ -56,8 +62,9 @@ function printExecutionSequence() {
 }
 
 // 함수 출력
-console.log(getArea('circle', 10));
-console.log(getArea('rect', 10, 15));
-console.log(getArea('trapezoid', 10, 15, 12));
-console.log(getArea('circle', 2, 3));
+getArea('circle', 10);
+getArea('rect', 10, 15);
+getArea('trapezoid', 10, 15, 12);
+getArea('circle', 2, 3);
+getArea('star', 2)
 printExecutionSequence();
