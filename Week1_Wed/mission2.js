@@ -107,7 +107,7 @@ console.log(numberTypeData(data));
 // ----------------- 5. 배열 결과 출력 -----------------
 // json 파일을 불러오기 (동기)
 const fs = require('fs');
-const jsonData = JSON.parse(fs.readFileSync('./day3/mission2-5.json', 'utf8'));
+const jsonData = JSON.parse(fs.readFileSync('./Week1_Wed/mission2-5.json', 'utf8'));
 
 const result = [];
 function findData(data) {
@@ -123,3 +123,16 @@ function findData(data) {
   return result;
 }
 console.log(findData(jsonData));
+
+// ----------------- 6. reduce 만들기 -----------------
+const testData = [2, 4, 6, 8]
+const myReduce = (arr, callback, initialValue) => {
+  arr.forEach(cur => {
+    initialValue = callback(initialValue, cur)
+  });
+  return initialValue;
+}
+
+const add = (prev, next) => prev + next;
+
+console.log(`myReduce의 결과는: '${myReduce(testData, add, 0)}' 입니다.`);
