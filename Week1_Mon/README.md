@@ -1,10 +1,10 @@
 # 학습 체크 포인트
 
-- Node.js를 통해서 JavaScript개발을 할 수 있다. 
-- 함수의 역할은 한가지에 집중하고 있다. 
-- 일관된 변수명과 함수이름을 짓고 있다. 
-- 함수는 늘 동일한 입력값에 동일한 출력을 보장한다.
-- 개발과정에서 breakpoint나 'debugger;' 키워드를 사용해서 디버깅을 했다. 🙅‍♀️
+- [x] Node.js를 통해서 JavaScript개발을 할 수 있다. 
+- [x] 함수의 역할은 한가지에 집중하고 있다. 
+- [x] 일관된 변수명과 함수이름을 짓고 있다. 
+- [x] 함수는 늘 동일한 입력값에 동일한 출력을 보장한다.
+- [x] 개발과정에서 breakpoint나 'debugger;' 키워드를 사용해서 디버깅을 했다. 
 
 ## 구현하면서 생긴 문제점과 해결 과정
 
@@ -121,7 +121,6 @@ function getArea(shape, ...size) {
 ```
 push를 먼저하고 결과를 반환하도록 수정했다.
 
-
 ### 치명적이진 않지만 사소한 오류(실수)
 
 1. [코드는 정상적으로 작동하나 마지막에 undefined가 출력되는 현상](https://github.com/JiminKim-dev/kokoa_mission/commit/a5f66ad46512e7fa9ce3373a71fe1586165e21e4#diff-8e7b8b0bb91d94c103ed0288e63e90a57a4ef5fbbaf2a05e85b0eb3866e2fd3d)
@@ -148,3 +147,52 @@ else if (shape === 'rect') {
 
 
 👉 사소한 실수를 수정하기 위한 잦은 커밋을 방지하기 위해 코드를 꼭 꼼꼼히 살펴봐야겠다
+
+### break와 return의 차이
+
+#### break
+```js
+function getArea(shape, ...size) {
+  let result = '';
+  switch (shape) {
+    // 이하 생략
+    default:
+      console.log('원, 사각형, 사다리꼴의 넓이만 구할 수 있습니다.'); 
+	  break;
+  }
+
+  record.push(`${shape} ${result}`);
+  return result
+}
+```
+
+```
+> 원, 사각형, 사다리꼴의 넓이만 구할 수 있습니다.
+> star
+```
+`getArea('star', 2)` 라는 입력값을 주면 에러메세지만 뜨는게 아니라 shape도 같이 출력이 되는 오류가 생겼다.
+
+👉 _[break](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/break)를 쓰면 함수가 완전히 끝나는게 아니라 해당 switch문 만 종료되고 다음 문으로 넘어간다._
+
+
+#### return
+```js
+function getArea(shape, ...size) {
+  let result = '';
+  switch (shape) {
+    // 이하 생략
+    default:
+      return console.log('원, 사각형, 사다리꼴의 넓이만 구할 수 있습니다.'); 
+  }
+
+  record.push(`${shape} ${result}`);
+  return result
+}
+```
+```
+> 원, 사각형, 사다리꼴의 넓이만 구할 수 있습니다.
+```
+해당 오류는 break 대신 return으로 수정하니까 정상적으로 출력됐다.
+
+👉 _[return 명령문](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/return)은 함수 실행을 종료하고, 주어진 값을 함수 호출 지점으로 반환한다._
+
