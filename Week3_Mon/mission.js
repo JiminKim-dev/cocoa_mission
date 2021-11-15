@@ -22,10 +22,11 @@ function getStandardDeviation(arr) {
 }
 
 // 표준화
-function getNormalDistribution(x) {
-  return ((x - getMean(data)) / getStandardDeviation(data)).toFixed(2);
+function getNormalDistribution(arr, x) {
+  const result = ((x - getMean(arr)) / getStandardDeviation(arr)).toFixed(2);
+  return +result
 }
 
-console.log(getNormalDistribution(70)); // -1,03
-console.log(getNormalDistribution(80)); // 0.28
 
+console.log(getNormalDistribution(data, 70)); // -1,03
+console.log(getNormalDistribution(data, 80)); // 0.28
