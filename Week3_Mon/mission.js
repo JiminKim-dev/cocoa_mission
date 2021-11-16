@@ -24,6 +24,17 @@ const zTable = {
   1.7: [0.95543, 0.95637, 0.95728, 0.95818, 0.95907, 0.95994, 0.96080, 0.96164, 0.96246, 0.96327],
   1.8: [0.96407, 0.96485, 0.96562, 0.96638, 0.96712, 0.96784, 0.96856, 0.96926, 0.96995, 0.97062],
   1.9: [0.97128, 0.97193, 0.97257, 0.97320, 0.97381, 0.97441, 0.97500, 0.97558, 0.97615, 0.97670],
+  2.0: [0.97725, 0.97778, 0.97831, 0.97882, 0.97932, 0.97982, 0.98030, 0.98077, 0.98124, 0.98169],
+  2.1: [0.98214, 0.98257, 0.98300, 0.98341, 0.98382, 0.98422, 0.98461, 0.98500, 0.98537, 0.98574],
+  2.2: [0.98610, 0.98645, 0.98679, 0.98713, 0.98745, 0.98778, 0.98809, 0.98840, 0.98870, 0.98899],
+  2.3: [0.98928, 0.98956, 0.98983, 0.99010, 0.99036, 0.99061, 0.99086, 0.99111, 0.99134, 0.99158],
+  2.4: [0.99180, 0.99202, 0.99224, 0.99245, 0.99266, 0.99286, 0.99305, 0.99324, 0.99343, 0.99361],
+  2.5: [0.99379, 0.99396, 0.99413, 0.99430, 0.99446, 0.99461, 0.99477, 0.99492, 0.99506, 0.99520],
+  2.6: [0.99534, 0.99547, 0.99560, 0.99573, 0.99585, 0.99598, 0.99609, 0.99621, 0.99632, 0.99643],
+  2.7: [0.99653, 0.99664, 0.99674, 0.99683, 0.99693, 0.99702, 0.99711, 0.99720, 0.99728, 0.99736],
+  2.8: [0.99744, 0.99752, 0.99760, 0.99767, 0.99774, 0.99781, 0.99788, 0.99795, 0.99801, 0.99807],
+  2.9: [0.99813, 0.99819, 0.99825, 0.99831, 0.99836, 0.99841, 0.99846, 0.99851, 0.99856, 0.99861],
+  3.0: [0.99865, 0.99869, 0.99874, 0.99878, 0.99882, 0.99886, 0.99889, 0.99893, 0.99896, 0.99900],
 }
 
 class findGrade {
@@ -53,29 +64,50 @@ class findGrade {
     return ((z - this.getMean()) / this.getStandardDeviation()).toFixed(2);
   }
   
-  // 인덱스 구하기 ❗️❗️ 수정 필요 ❗️❗️
+  // z인덱스 구하기
   getZIndex(x) {
-    const row = +(this.getNormalDistribution(x).substring(0, 3));
-    const col = +(this.getNormalDistribution(x).substring(3));
-    return `${row}, ${col}`
+    if (this.getNormalDistribution(x) < 0) {
+      const row = +this.getNormalDistribution(x).substring(0, 4);
+      const col = +this.getNormalDistribution(x).substring(4);
+
+      return zTable[Math.abs(row)][col]
+    } else {
+      const row = +this.getNormalDistribution(x).substring(0, 3);
+      const col = +this.getNormalDistribution(x).substring(3);
+
+      return zTable[row][col]
+    }
   }
   
-  // 확률 구하기 / 아.... 표준화 된 값이 둘 다 음수면..... ❗️❗️ 수정 필요 ❗️❗️
-  // getProbability(min, max) {
-  //   const probability = this.getZIndex(max) - (1 - this.getZIndex(min));
-  //   return `${probability * 100}%`;
-  //   }
+  // 확률 구하기
+  getProbability(min, max) {
+    let probability = '';
+
+    if (this.getNormalDistribution(min) < 0 && this.getNormalDistribution(max) < 0) {
+      probability = (1 - this.getZIndex(max)) - (1 - this.getZIndex(min)) 
+    } else if (this.getNormalDistribution(min) < 0) {
+      probability = this.getZIndex(max) - (1 - this.getZIndex(min)) 
+    } else {
+      probability = this.getZIndex(max) - (this.getZIndex(min));
+    }
+
+    const percent = (probability * 100).toFixed(2);
+
+    return `${percent}%`;
+    }
 }
 
 const grade = new findGrade(data);
 console.log(`전체 평균은 ${grade.getMean()} 입니다.`);
 console.log(`표준편차는 ${grade.getStandardDeviation()} 입니다.`);
+
 console.log(grade.getNormalDistribution(70));
 console.log(grade.getNormalDistribution(80));
+
 console.log(grade.getZIndex(70));
 console.log(grade.getZIndex(80));
 
-console.log(grade.getNormalDistribution(60));
-console.log(grade.getNormalDistribution(70));
-console.log(grade.getZIndex(60));
-console.log(grade.getZIndex(80));
+console.log(`70점과 80점의 사이의 값을 갖는 확률: ${grade.getProbability(70, 80)}`);
+console.log(`65점과 70점의 사이의 값을 갖는 확률: ${grade.getProbability(65, 70)}`);
+console.log(`60점과 90점의 사이의 값을 갖는 확률: ${grade.getProbability(60, 90)}`);
+console.log(`80점과 90점의 사이의 값을 갖는 확률: ${grade.getProbability(80, 90)}`);
