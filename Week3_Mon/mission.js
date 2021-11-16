@@ -67,15 +67,15 @@ class findGrade {
   // z인덱스 구하기
   getZIndex(x) {
     if (this.getNormalDistribution(x) < 0) {
-      const row = +this.getNormalDistribution(x).substring(0, 4);
-      const col = +this.getNormalDistribution(x).substring(4);
+      const col = +this.getNormalDistribution(x).substring(0, 4);
+      const row = +this.getNormalDistribution(x).substring(4);
 
-      return zTable[Math.abs(row)][col]
+      return zTable[Math.abs(col)][row]
     } else {
-      const row = +this.getNormalDistribution(x).substring(0, 3);
-      const col = +this.getNormalDistribution(x).substring(3);
+      const col = +this.getNormalDistribution(x).substring(0, 3);
+      const row = +this.getNormalDistribution(x).substring(3);
 
-      return zTable[row][col]
+      return zTable[col][row]
     }
   }
   
@@ -98,16 +98,48 @@ class findGrade {
 }
 
 const grade = new findGrade(data);
-console.log(`전체 평균은 ${grade.getMean()} 입니다.`);
-console.log(`표준편차는 ${grade.getStandardDeviation()} 입니다.`);
+const test = `
+  # 전체 평균은 ${grade.getMean()} 입니다.
+  # 표준편차는 ${grade.getStandardDeviation()} 입니다.
 
-console.log(grade.getNormalDistribution(70));
-console.log(grade.getNormalDistribution(80));
+  --------------test 1---------------
 
-console.log(grade.getZIndex(70));
-console.log(grade.getZIndex(80));
+  # 70을 표준화 하면 ${grade.getNormalDistribution(70)} 입니다.
+  # 80을 표준화 하면 ${grade.getNormalDistribution(80)} 입니다.
 
-console.log(`70점과 80점의 사이의 값을 갖는 확률: ${grade.getProbability(70, 80)}`);
-console.log(`65점과 70점의 사이의 값을 갖는 확률: ${grade.getProbability(65, 70)}`);
-console.log(`60점과 90점의 사이의 값을 갖는 확률: ${grade.getProbability(60, 90)}`);
-console.log(`80점과 90점의 사이의 값을 갖는 확률: ${grade.getProbability(80, 90)}`);
+  # 70의 z-index 값은 ${grade.getZIndex(70)} 입니다.
+  # 80의 z-index 값은 ${grade.getZIndex(80)} 입니다.
+
+  # 70점과 80점 사이의 값을 갖는 확률: ${grade.getProbability(70, 80)}
+
+  --------------test 2---------------
+
+  # 65를 표준화 하면 ${grade.getNormalDistribution(65)} 입니다.
+  # 70을 표준화 하면 ${grade.getNormalDistribution(70)} 입니다.
+
+  # 65의 z-index 값은 ${grade.getZIndex(65)} 입니다.
+  # 70의 z-index 값은 ${grade.getZIndex(70)} 입니다.
+
+  # 65점과 70점 사이의 값을 갖는 확률: ${grade.getProbability(65, 70)}
+
+  --------------test 3---------------  
+
+  # 60을 표준화 하면 ${grade.getNormalDistribution(60)} 입니다.
+  # 90을 표준화 하면 ${grade.getNormalDistribution(90)} 입니다.
+
+  # 60의 z-index 값은 ${grade.getZIndex(60)} 입니다.
+  # 90의 z-index 값은 ${grade.getZIndex(90)} 입니다.
+
+  # 60점과 90점 사이의 값을 갖는 확률: ${grade.getProbability(60, 90)}
+
+  --------------test 3---------------
+
+  # 80을 표준화 하면 ${grade.getNormalDistribution(80)} 입니다.
+  # 90을 표준화 하면 ${grade.getNormalDistribution(90)} 입니다.
+
+  # 80의 z-index 값은 ${grade.getZIndex(80)} 입니다.
+  # 90의 z-index 값은 ${grade.getZIndex(90)} 입니다.
+
+  # 80점과 90점 사이의 값을 갖는 확률: ${grade.getProbability(80, 90)}
+`;
+console.log(test);
