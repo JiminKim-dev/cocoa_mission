@@ -37,7 +37,9 @@ const zTable = {
   3.0: [0.99865, 0.99869, 0.99874, 0.99878, 0.99882, 0.99886, 0.99889, 0.99893, 0.99896, 0.99900],
 }
 
-class findGrade {
+console.log(zTable[0.3][2]);
+
+class gradeManager {
   constructor(data) {
     this.data = data;
   }
@@ -52,11 +54,14 @@ class findGrade {
     return this.data.map(e => Math.pow(e - this.getMean(), 2));
   }
 
-  // 분산: 편차 제곱 평균 / 표준편차: 분산의 제곱근 (Math.sqrt)
-  // this.getMeand안에 this.getDeviationPow를 넣는건 안됨.. 재사용하고 싶었는데..
+  // 분산: 편차 제곱 평균 
+  getVariance() {
+    return this.getDeviationPow().reduce((pre, cur) => pre + cur) / this.data.length; 
+  }
+
+  // 표준편차: 분산의 제곱근 (Math.sqrt)
   getStandardDeviation() {
-    const variance = this.getDeviationPow().reduce((pre, cur) => pre + cur) / this.data.length; 
-    return Math.sqrt(variance);
+    return Math.sqrt(this.getVariance());
   }
 
   // 표준화
@@ -66,29 +71,30 @@ class findGrade {
   
   // z인덱스 구하기
   getZIndex(x) {
-    if (this.getNormalDistribution(x) < 0) {
-      const col = +this.getNormalDistribution(x).substring(0, 4);
-      const row = +this.getNormalDistribution(x).substring(4);
+    const normalDistribution = Math.abs(this.getNormalDistribution(x)).toFixed(2);
 
-      return zTable[Math.abs(col)][row]
-    } else {
-      const col = +this.getNormalDistribution(x).substring(0, 3);
-      const row = +this.getNormalDistribution(x).substring(3);
+    const col = +normalDistribution.substring(0, 3);
+    const row = +normalDistribution.substring(3);
 
-      return zTable[col][row]
-    }
+    return zTable[col][row]
   }
   
   // 확률 구하기
   getProbability(min, max) {
     let probability = '';
+    const normalDistributionMin = this.getNormalDistribution(min);
+    const normalDistributionMax = this.getNormalDistribution(max);
+    const zIndexMin = this.getZIndex(min);
+    const zIndexMax = this.getZIndex(max);
 
-    if (this.getNormalDistribution(min) < 0 && this.getNormalDistribution(max) < 0) {
-      probability = (1 - this.getZIndex(max)) - (1 - this.getZIndex(min)) 
-    } else if (this.getNormalDistribution(min) < 0) {
-      probability = this.getZIndex(max) - (1 - this.getZIndex(min)) 
+    if (normalDistributionMin < 0 && normalDistributionMax < 0) {
+      // 표준화된 값이 둘 다 음수일때
+      probability = (1 - zIndexMax) - (1 - zIndexMin); 
+    } else if (normalDistributionMin < 0) {
+      // 표준화된 값 중 작은 값?이 음수일때
+      probability = zIndexMax - (1 - zIndexMin); 
     } else {
-      probability = this.getZIndex(max) - (this.getZIndex(min));
+      probability = zIndexMax - zIndexMin;
     }
 
     const percent = (probability * 100).toFixed(2);
@@ -97,7 +103,7 @@ class findGrade {
     }
 }
 
-const grade = new findGrade(data);
+const grade = new gradeManager(data);
 const test = `
   # 전체 평균은 ${grade.getMean()} 입니다.
   # 표준편차는 ${grade.getStandardDeviation()} 입니다.
