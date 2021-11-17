@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
+
+* {
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: lavender;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* Reset CSS */
+button {
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+
+/* main */
+#todolist {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 20px;
+  width: 420px;
+  height: 80vh;
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+#todolist h1 {
+  margin-bottom: 20px;
+}
+
+#todo_form {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+#form_input {
+  padding-left: 12px;
+  width: 85%;
+  height: 32px;
+  border: 1px solid rgb(101, 101, 101);
+  border-radius: 8px 0 0 8px;
+}
+
+#form_input:focus {
+  outline: none;
+}
+
+#form_addBtn {
+  width: 15%;
+  height: 32px;
+  margin-left: -5px;
+  border: 1px solid rgb(101, 101, 101);
+  border-radius: 0 8px 8px 0;
+  background-color: rgb(81, 211, 140);
+  vertical-align: middle;
+}
+
+
+#todo_contents {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgb(101, 101, 101);
+  border-radius: 8px;
+}
+
+.todo_item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+}
+
+.item_checkBtn:hover {
+  color: darkgrey;
+}
+
+.item_deleteBtn:hover {
+  color: rgb(211, 81, 81);
+}
+
+.todo_item span {
+  width: 70%;
+  font-size: 14px;
+  text-align: left;
+}
