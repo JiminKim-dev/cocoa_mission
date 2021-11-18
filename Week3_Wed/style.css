@@ -27,12 +27,14 @@ ul {
 #todolist {
   display: flex;
   flex-direction: column;
-  text-align: center;
+  margin-top: 50px;
   padding: 20px;
   width: 420px;
-  height: 80vh;
+  height: 600px;
   border-radius: 20px;
   background-color: #fff;
+  -webkit-box-shadow: -1px 9px 15px -5px rgba(0,0,0,0.32); 
+  box-shadow: -1px 9px 15px -5px rgba(0,0,0,0.32);
 }
 
 #todolist h1 {
@@ -88,8 +90,12 @@ ul {
   color: rgb(211, 81, 81);
 }
 
-.todo_item span {
+.item_text {
   width: 70%;
   font-size: 14px;
   text-align: left;
+}
+
+.checked {
+  text-decoration: line-through;
 }

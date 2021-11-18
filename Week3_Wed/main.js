@@ -3,14 +3,13 @@ const todolist = document.querySelector('#todolist');
 
 // 리스트 생성은 잘 되는데 체크박스와 삭제버튼은 첫번째 리스트에만 적용된다.
 todolist.addEventListener('click', e => { 
-  const addBtn = document.querySelector('#form_addBtn');
-  const deleteBtn = document.querySelector('.deleteIcon');
   const checkBtn = document.querySelector('.checkIcon');
+  const deleteBtn = document.querySelector('.deleteIcon');
 
+  if (e.target.id === 'form_addBtn') addList();
+  if (e.target === checkBtn) checkBtnOnOff();
   if (e.target === deleteBtn) removeList();
-  if (e.target === addBtn) addList();
-  if (e.target === checkBtn) checkBtnOnOff()
-})
+});
 
 // 할일 추가
 function addList() {
@@ -22,7 +21,7 @@ function addList() {
   }
 
   const addNewItem = createItem(inputValue);
-  return itemList.appendChild(addNewItem);
+  itemList.appendChild(addNewItem);
 }
 
 function createItem(inputValue) {
@@ -47,10 +46,7 @@ function checkBtnOnOff() {
 
   checkIcon.classList.toggle('fa-square');
   checkIcon.classList.toggle('fa-check-square');
-
-  checkIcon.classList.contains('fa-check-square') 
-  ? itemText.style.textDecoration = "line-through"
-  : itemText.style.textDecoration = "none";
+  itemText.classList.toggle('checked');
 }
 
 function removeList() {
