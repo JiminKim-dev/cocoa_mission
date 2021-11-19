@@ -1,27 +1,17 @@
 // 함수로 잘 굴러가는지 테스트 중... 
-const todolist = document.querySelector('#todolist');
-
-// 리스트 생성은 잘 되는데 체크박스와 삭제버튼은 첫번째 리스트에만 적용된다.
-todolist.addEventListener('click', e => { 
-  const checkBtn = document.querySelector('.checkIcon');
-  const deleteBtn = document.querySelector('.deleteIcon');
-
-  if (e.target.id === 'form_addBtn') addList();
-  if (e.target === checkBtn) checkBtnOnOff();
-  if (e.target === deleteBtn) removeList();
-});
 
 // 할일 추가
 function addList() {
-  const inputValue = document.querySelector('#form_input').value;
+  const input = document.querySelector('#form_input');
   const itemList = document.querySelector('#todo_contents');
 
-  if (inputValue === '') {
-    return console.log('입력하세요');
+  if (input.value === '') {
+    return alert('입력하세요');
   }
 
-  const addNewItem = createItem(inputValue);
+  const addNewItem = createItem(input.value);
   itemList.appendChild(addNewItem);
+  input.value = '';
 }
 
 function createItem(inputValue) {
@@ -40,16 +30,25 @@ function createItem(inputValue) {
   return newItem
 }
 
-function checkBtnOnOff() {
-  const checkIcon = document.querySelector('.checkIcon');
-  const itemText = document.querySelector(".item_text");
-
-  checkIcon.classList.toggle('fa-square');
-  checkIcon.classList.toggle('fa-check-square');
+function checkBtnOnOff(e) {
+  const itemText = e.parentElement.nextElementSibling;
+  e.classList.toggle('fa-square');
+  e.classList.toggle('fa-check-square');
   itemText.classList.toggle('checked');
 }
 
-function removeList() {
-  const item = document.querySelector('.todo_item');
-  item.parentNode.removeChild(item);
+function removeList(e) {
+  e.closest('.todo_item').remove();
 }
+
+const todoForm = document.querySelector('#todo_form');
+todoForm.addEventListener('submit', e => {
+  e.preventDefault();
+  addList();
+});
+
+const itemLists = document.querySelector('#todo_contents');
+itemLists.addEventListener('click', (e) => {
+  if (e.target.classList.contains('checkIcon')) checkBtnOnOff(e.target);
+  if (e.target.classList.contains('deleteIcon')) removeList(e.target);
+});
