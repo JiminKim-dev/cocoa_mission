@@ -30,7 +30,7 @@ ul {
   margin-top: 50px;
   padding: 20px;
   width: 420px;
-  height: 600px;
+  height: 80vh;
   border-radius: 20px;
   background-color: #fff;
   -webkit-box-shadow: -1px 9px 15px -5px rgba(0,0,0,0.32); 
@@ -71,9 +71,10 @@ ul {
 
 #todo_contents {
   width: 100%;
-  height: 100%;
+  height: inherit;
   border: 1px solid rgb(101, 101, 101);
   border-radius: 8px;
+  overflow-y: scroll;
 }
 
 .todo_item {
@@ -96,6 +97,6 @@ ul {
   text-align: left;
 }
 
-.checked {
+.item_text.checked {
   text-decoration: line-through;
 }
