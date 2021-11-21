@@ -6,10 +6,7 @@ function loadToDo() {
 
   if (loadToDos !== null) {
     const parsedTodos = JSON.parse(loadToDos);
-
-    parsedTodos.forEach((todo) => {
-      addList(todo.text)
-    })
+    parsedTodos.forEach(todo => addList(todo.text))
   }
 }
 
@@ -40,11 +37,10 @@ function addList(inputValue) {
 
 function newToDoObj(item, inputText) {
   const addId = item.lastChild.id = todoList.length + 1;
-  const checked = item.lastChild.dataset.check
   const todoObj = {
     text: inputText,
     id: addId,
-    check: checked,
+    done: false,
   }
 
   return todoList.push(todoObj);
@@ -53,12 +49,11 @@ function newToDoObj(item, inputText) {
 function createItem(inputValue) {
   const newItem = document.createElement('li');
   newItem.setAttribute('class', 'todo_item');
-  newItem.setAttribute('data-check', false);
   newItem.innerHTML = `
   <button class="item_checkBtn">
   <i class="far fa-square checkIcon"></i>
   </button>
-  <span class="item_text">${inputValue}</span> 
+  <span class="item_text" data-done=false>${inputValue}</span> 
   <button class="item_deleteBtn">
   <i class="fas fa-minus-circle deleteIcon"></i>
   </button>
@@ -71,13 +66,25 @@ function checkBtnOnOff(e) {
   e.classList.toggle('fa-square');
   e.classList.toggle('fa-check-square');
 
-  const itemText = e.parentElement.nextElementSibling;
-  itemText.classList.toggle('checked');
+  doneTodos(e);
+}
 
-  // localStorage의 check 값을 덮어쓰기할 방법 생각중.. 함수 분리 해야할듯
-  itemText.classList.contains('checked')
-  ? e.closest('.todo_item').dataset.check = true
-  : e.closest('.todo_item').dataset.check = false
+// 아직 localStorage에 영구적으로 저장은 안됨
+function doneToDos(e) {
+  const findTodoIndex = todoList.findIndex((todo) => todo.id == e.closest('.todo_item').id);
+  
+  const itemText = e.parentElement.nextElementSibling;
+  
+  // 수정 필요
+  if (e.classList.contains('fa-check-square')) {
+    todoList[findTodoIndex].done = true;
+    itemText.dataset.done = true;
+  } else {
+    todoList[findTodoIndex].done = false;
+    itemText.dataset.done = false;
+  }
+  
+  saveToDos();
 }
 
 function removeList(e) {
@@ -93,6 +100,7 @@ function removeList(e) {
   saveToDos();
 }
 
+
 function btnClickHandler() {
   const itemLists = document.querySelector('#todo_contents');
   itemLists.addEventListener('click', (e) => {
@@ -101,12 +109,14 @@ function btnClickHandler() {
   });
 }
 
-// 페이지 실행시 가장 먼저 실행되는 함수
-(function init() {
-  loadToDo()
-
+function formSubmitHandler() {
   const todoForm = document.querySelector('#todo_form');
   todoForm.addEventListener('submit', submitHandle);
+}
 
+// 페이지 실행시 가장 먼저 실행되는 함수
+(function init() {
+  loadToDo();
+  formSubmitHandler();
   btnClickHandler();
 })();
