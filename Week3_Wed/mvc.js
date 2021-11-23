@@ -9,11 +9,17 @@ class Model {
   }
 
   saveToDos() {
-
+    localStorage.setItem('My ToDoList', JSON.stringify(this.todoList))
   }
 
-  addToDos() {
+  addToDos(todoText) {
+    const todo = {
+      id: this.todoList.length + 1,
+      text: todoText,
+      done: false,
+    }
 
+    this.todoList.push(todo)
   }
 
   doneToDos() {
@@ -27,14 +33,16 @@ class Model {
 
 // UI 관련 (DOM)
 class View {
-  constructor() {
+  constructor(model) {
+    this.model = model;
+
     this.form = document.querySelector('#todo_form');
     this.input = document.querySelector('#form_input');
     this.itemLists = document.querySelector('#todo_contents');
   }
 
   getInputText() {
-    return this.input.value
+    return this.input.value;
   }
 
   resetInputText() {
@@ -44,20 +52,23 @@ class View {
   renderTodo(inputValue) {
     if (inputValue  === '') return alert('입력하세요');
 
-    const addNewItem = this.createItem(inputValue);
+    const addNewItem = this.createTodo(inputValue);
     this.itemLists.appendChild(addNewItem);
+
+    this.model.addToDos(this.getInputText());
+    this.model.saveToDos();
   }
 
-  createItem(inputValue) {
+  createTodo(inputValue) {
     const newItem = document.createElement('li');
     newItem.setAttribute('class', 'todo_item');
     newItem.innerHTML = `
     <button class="item_checkBtn">
-    <i class="far fa-square checkIcon"></i>
+      <i class="far fa-square checkIcon"></i>
     </button>
     <span class="item_text" data-done=false>${inputValue}</span> 
     <button class="item_deleteBtn">
-    <i class="fas fa-minus-circle deleteIcon"></i>
+      <i class="fas fa-minus-circle deleteIcon"></i>
     </button>
     `;
 
@@ -113,6 +124,6 @@ class Controller {
 
 
 const model = new Model();
-const view = new View();
+const view = new View(model);
 const todoList = new Controller(model, view);
 todoList.init();
