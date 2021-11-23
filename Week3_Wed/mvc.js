@@ -4,7 +4,7 @@ class Model {
     this.todoList = [];
   }
 
-  loadToDo() {
+  loadToDos() {
 
   }
 
@@ -12,7 +12,7 @@ class Model {
 
   }
 
-  newToDoObj() {
+  addToDos() {
 
   }
 
@@ -28,12 +28,20 @@ class Model {
 // UI 관련 (DOM)
 class View {
   constructor() {
-    this.element = document.querySelector('#todo_form');
+    this.form = document.querySelector('#todo_form');
     this.input = document.querySelector('#form_input');
     this.itemLists = document.querySelector('#todo_contents');
   }
 
-  addList(inputValue) {
+  getInputText() {
+    return this.input.value
+  }
+
+  resetInputText() {
+    return this.input.value = '';
+  }
+
+  renderTodo(inputValue) {
     if (inputValue  === '') return alert('입력하세요');
 
     const addNewItem = this.createItem(inputValue);
@@ -56,9 +64,15 @@ class View {
     return newItem
   }
 
-  checkBtnOnOff() {
+  checkBtnOnOff(e) {
     e.classList.toggle('fa-square');
     e.classList.toggle('fa-check-square');
+
+    const itemText = e.parentElement.nextElementSibling;
+  
+    e.classList.contains('fa-check-square') 
+    ? itemText.dataset.done = true
+    : itemText.dataset.done = false;
   }
 
   removeList(e) {
@@ -79,13 +93,13 @@ class Controller {
   }
 
   formSubmitHandler() {
-    this.view.element.addEventListener('submit', (e) => this.submitHandle(e));
+    this.view.form.addEventListener('submit', (e) => this.submitHandle(e));
   }
 
   submitHandle(e) {
     e.preventDefault();
-    this.view.addList(this.view.input.value);
-    this.view.input.value = "";
+    this.view.renderTodo(this.view.getInputText());
+    this.view.resetInputText();
   }
 
   btnClickHandler() {
