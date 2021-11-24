@@ -1,0 +1,78 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* reset CSS */
+ul,
+li {
+  list-style-type: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.dropdown {
+  margin-top: 50px;
+  padding: 40px;
+  width: 300px;
+}
+
+.dropdown-toggle {
+  margin-bottom: 4px;
+  width: 100%;
+  height: 52px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: lightblue;
+}
+
+.dropdown-menu {
+  visibility: hidden;
+  margin-bottom: 8px;
+  width: 220px;
+  border: 1px solid rgb(208, 208, 208);
+  border-radius: 8px;
+  background-color: #FFF;
+}
+
+.dropdown-menu.show {
+  visibility: visible;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 12px;
+  width: 100%;
+}
+
+.dropdown-item:hover {
+  background-color: rgb(225, 225, 225);
+  cursor: pointer;
+}
+
+.dropdown-item:first-child:hover {
+  border-radius: 8px 8px 0 0;
+}
+
+.dropdown-item:last-child:hover {
+  border-radius: 0 0 8px 8px;
+}
+
+.countFruits {
+  visibility: hidden;
+  width: 100%;
+  padding: 12px;
+  text-align: left;
+}
+
+
+.countFruits.show {
+  visibility: visible;
+}
