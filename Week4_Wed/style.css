@@ -65,7 +65,7 @@ body {
   border-radius: 0 0 8px 8px;
 }
 
-.countFruits {
+.count-fruits {
   visibility: hidden;
   width: 100%;
   padding: 12px;
@@ -73,6 +73,6 @@ body {
 }
 
 
-.countFruits.show {
+.count-fruits.show {
   visibility: visible;
 }
