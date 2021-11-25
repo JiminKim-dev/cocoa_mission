@@ -66,7 +66,7 @@ function checkBtnOnOff(e) {
   e.classList.toggle('fa-square');
   e.classList.toggle('fa-check-square');
 
-  doneTodos(e);
+  doneToDos(e);
 }
 
 // 아직 localStorage에 영구적으로 저장은 안됨
