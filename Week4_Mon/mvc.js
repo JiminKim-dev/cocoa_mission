@@ -1,15 +1,11 @@
 // 로컬 스토리지 관련
 class Model {
   constructor() {
-    this.todoList = [];
-  }
-
-  loadToDos() {
-
+    this.todoList = JSON.parse(localStorage.getItem('My ToDoList')) || [];
   }
 
   saveToDos() {
-    localStorage.setItem('My ToDoList', JSON.stringify(this.todoList))
+    localStorage.setItem('My ToDoList', JSON.stringify(this.todoList));
   }
 
   addToDos(todoText) {
@@ -19,15 +15,14 @@ class Model {
       done: false,
     }
 
-    this.todoList.push(todo)
+    this.todoList.push(todo);
   }
 
   doneToDos() {
-
+    
   }
 
   removeToDos() {
-
   }
 }
 
@@ -49,14 +44,19 @@ class View {
     return this.input.value = '';
   }
 
+  loadRenderTodos() {
+    if (this.model.todoList !== null) {
+      this.model.todoList.forEach(todo => this.renderTodo(todo.text));
+    } 
+    
+    this.model.saveToDos();
+  }
+
   renderTodo(inputValue) {
     if (inputValue  === '') return alert('입력하세요');
 
     const addNewItem = this.createTodo(inputValue);
     this.itemLists.appendChild(addNewItem);
-
-    this.model.addToDos(this.getInputText());
-    this.model.saveToDos();
   }
 
   createTodo(inputValue) {
@@ -99,6 +99,7 @@ class Controller {
   }
 
   init() {
+    this.view.loadRenderTodos();
     this.formSubmitHandler();
     this.btnClickHandler();
   }
@@ -110,6 +111,8 @@ class Controller {
   submitHandle(e) {
     e.preventDefault();
     this.view.renderTodo(this.view.getInputText());
+    this.model.addToDos(this.view.getInputText());
+    this.model.saveToDos();
     this.view.resetInputText();
   }
 
