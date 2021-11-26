@@ -1,16 +1,16 @@
 // 로컬 스토리지 관련
 class Model {
   constructor() {
-    this.todoList = JSON.parse(localStorage.getItem('My ToDoList')) || [];
+    this.todoListName = 'My ToDoList'
+    this.todoList = JSON.parse(localStorage.getItem(this.todoListName)) || [];
   }
 
   saveToDos() {
-    localStorage.setItem('My ToDoList', JSON.stringify(this.todoList));
+    localStorage.setItem(this.todoListName, JSON.stringify(this.todoList));
   }
 
   addToDos(todoText) {
     const todo = {
-      id: this.todoList.length + 1,
       text: todoText,
       done: false,
     }
@@ -20,12 +20,15 @@ class Model {
     this.saveToDos();
   }
 
-  doneToDos() {
-    
+  doneToDos(e) {
+    const checked = this.todoList.find((todo) => todo.text === e.innerText);
+    if(checked) checked.done = !checked.done;
+
+    this.saveToDos();
   }
 
   removeToDos(e) {
-    this.todoList = this.todoList.filter(todo => todo.text !== e.childNodes[3].innerText);
+    this.todoList = this.todoList.filter(todo => todo.text !== e.children[1].innerText);
     
     this.saveToDos();
   }
@@ -51,14 +54,24 @@ class View {
 
   loadRenderTodos() {
     if (this.model.todoList !== null) {
-      this.model.todoList.forEach(todo => this.renderTodo(todo.text));
+      this.model.todoList.forEach(todo => {
+        todo.done === true ? this.doneRenderTodo(todo.text) : this.renderTodo(todo.text);
+      });
     } 
+  }
+
+  doneRenderTodo(inputValue) {
+    const addNewItem = this.createTodo(inputValue);
+    addNewItem.children[0].checked = true;
+    addNewItem.children[1].dataset.done = true;
+    this.itemLists.appendChild(addNewItem);
   }
 
   renderTodo(inputValue) {
     if (inputValue  === '') return alert('입력하세요');
 
     const addNewItem = this.createTodo(inputValue);
+  
     this.itemLists.appendChild(addNewItem);
   }
 
@@ -66,27 +79,21 @@ class View {
     const newItem = document.createElement('li');
     newItem.setAttribute('class', 'todo_item');
     newItem.innerHTML = `
-    <button class="item_checkBtn">
-      <i class="far fa-square checkIcon"></i>
-    </button>
-    <span class="item_text" data-done=false>${inputValue}</span> 
-    <button class="item_deleteBtn">
-      <i class="fas fa-minus-circle deleteIcon"></i>
-    </button>
+      <input type="checkbox" class="checkbox"/>
+      <span class="item_text" data-done=false>${inputValue}</span> 
+      <button class="item_deleteBtn">
+        <i class="fas fa-minus-circle deleteIcon"></i>
+      </button>
     `;
 
     return newItem
   }
 
   checkBtnOnOff(e) {
-    e.classList.toggle('fa-square');
-    e.classList.toggle('fa-check-square');
+    const itemText = e.nextElementSibling;
+    e.checked ? itemText.dataset.done = true : itemText.dataset.done = false;
 
-    const itemText = e.parentElement.nextElementSibling;
-  
-    e.classList.contains('fa-check-square') 
-    ? itemText.dataset.done = true
-    : itemText.dataset.done = false;
+    this.model.doneToDos(itemText);
   }
 
   removeList(e) {
@@ -122,7 +129,7 @@ class Controller {
 
   btnClickHandler() {
     this.view.itemLists.addEventListener('click', e => {
-      if (e.target.classList.contains('checkIcon')) this.view.checkBtnOnOff(e.target);
+      if (e.target.classList.contains('checkbox')) this.view.checkBtnOnOff(e.target);
 
       if (e.target.classList.contains('deleteIcon')) this.view.removeList(e.target);
     })

@@ -83,12 +83,14 @@ ul {
   padding: 12px;
 }
 
-.item_text[data-done=true] {
-  text-decoration: line-through;
+.checkbox {
+  display: inline-block;
+  height: 20px;
+  cursor: pointer;
 }
 
-.item_checkBtn:hover {
-  color: darkgrey;
+.item_text[data-done=true] {
+  text-decoration: line-through;
 }
 
 .item_deleteBtn:hover {
