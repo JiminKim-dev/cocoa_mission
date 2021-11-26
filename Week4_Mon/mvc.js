@@ -16,13 +16,18 @@ class Model {
     }
 
     this.todoList.push(todo);
+
+    this.saveToDos();
   }
 
   doneToDos() {
     
   }
 
-  removeToDos() {
+  removeToDos(e) {
+    this.todoList = this.todoList.filter(todo => todo.text !== e.childNodes[3].innerText);
+    
+    this.saveToDos();
   }
 }
 
@@ -48,8 +53,6 @@ class View {
     if (this.model.todoList !== null) {
       this.model.todoList.forEach(todo => this.renderTodo(todo.text));
     } 
-    
-    this.model.saveToDos();
   }
 
   renderTodo(inputValue) {
@@ -88,6 +91,8 @@ class View {
 
   removeList(e) {
     e.closest('.todo_item').remove();
+
+    this.model.removeToDos(e.closest('.todo_item'));
   }
 }
 
@@ -112,7 +117,6 @@ class Controller {
     e.preventDefault();
     this.view.renderTodo(this.view.getInputText());
     this.model.addToDos(this.view.getInputText());
-    this.model.saveToDos();
     this.view.resetInputText();
   }
 
