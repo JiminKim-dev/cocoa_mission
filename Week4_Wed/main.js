@@ -1,19 +1,22 @@
-const fruitMenu = document.querySelector('.dropdown-menu');
+class DropdownController {
+  constructor() {
+    this.menu = document.querySelector('.dropdown-menu');
+    this.showMenu = document.querySelector('.dropdown-toggle');
+    this.fruitids = document.querySelectorAll('.count-fruit');
+  }
 
-(function showFruitMenu() {
-  const showFruitMenu = document.querySelector('.dropdown-toggle');
-  let timer;
+  showFruitMenu() {
+    let timer;
+    this.showMenu.addEventListener('mouseenter', () => {
+      timer = setTimeout(() => this.menu.classList.toggle('show'), 1000);
+    });
 
-  showFruitMenu.addEventListener('mouseenter', () => {
-    timer = setTimeout(() => fruitMenu.classList.toggle('show'), 1000);
-  });
+    this.showMenu.addEventListener('mouseleave', () => {
+      clearTimeout(timer);
+    });
+  }
 
-  showFruitMenu.addEventListener('mouseleave', () => {
-    clearTimeout(timer)
-  });
-})();
+}
 
-// 문제2 미구현
-fruitMenu.addEventListener('mouseover', (e) => {
-  console.count(e.target.id);
-});
+const smartDropdown = new DropdownController()
+smartDropdown.showFruitMenu();
