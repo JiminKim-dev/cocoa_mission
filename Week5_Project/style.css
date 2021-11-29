@@ -1,0 +1,76 @@
+@font-face {
+  font-family: 'DungGeunMo';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --header-back-color: rgb(191, 191, 191);
+  --header-text-color: black;
+  --back-color: rgb(8, 25, 96);
+  --text-color: #fff;
+}
+
+* {
+  box-sizing: none;
+  margin: 0 auto;
+  font-family: 'DungGeunMo';
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--back-color);
+  color: var(--text-color);
+}
+
+/* Header */
+.game-title {
+  text-align: center;
+  padding: 20px;
+  width: 100%;
+  font-size: 28px;
+  background-color: var(--header-back-color);
+  color: var(--header-text-color);
+}
+
+/* Main */
+.game-field {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  width: 75%;
+}
+
+.field-user-score {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 12px;
+  width: 100%;
+  font-size: 20px;
+}
+
+.field-raining {
+  margin-bottom: 12px;
+  width: 100%;
+  height: 65vh;
+  border: 1px solid var(--header-back-color);
+}
+
+.field-raining > span {
+  display: inline-block;
+}
+
+.field-typing-area {
+  padding: 16px;
+  width: 200px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  text-align: center;
+}
+
+.field-typing-area:focus {
+  outline: none;
+}
