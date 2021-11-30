@@ -12,8 +12,8 @@
 
   <main class="game-field">
     <div class="field-user-score">
-      <p>SCORE: 0</p>
-      <p>LIFE: ❤️❤️❤️❤️❤️</p>
+      <p>SCORE: <span class="score">0</span></p>
+      <p>LIFE: <span class="life">❤️❤️❤️❤️❤️</span></p>
     </div>
 
     <div class="field-raining"></div>
@@ -25,6 +25,12 @@
     <h1>산성비가 내려와</h1>
     <p>▼▼ CLICK ▼▼</p>
     <button type="button" class="game-start-btn">GAME START</button>
+  </div>
+
+  <div class="game-over-modal">
+    <h1>GAME OVER</h1>
+    <p>your score: 0</p>
+    <button type="button" class="game-replay-btn">REPLAY?</button>
   </div>
   
   <script type="module" src="./js/main.js"></script>
