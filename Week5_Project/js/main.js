@@ -3,6 +3,7 @@ import wordData from "./typing_words.js"
 class DataManager {
   constructor() {
     this.words = wordData;
+    this.score = 0;
   }
 
   shuffleWords = (arr) => {
@@ -29,8 +30,16 @@ class RainingViewManager {
     this.height = this.field.offsetHeight;
   }
 
-  hiddenModal() {
+  resetInput() {
+    this.input.value = '';
+  }
+
+  hiddenStartModal() {
     document.querySelector('.game-start-modal').classList.add('start');
+  }
+
+  randomPlace(e) {
+    e.style.left = `${(Math.floor(Math.random() * 90))}%`;
   }
 
   renderWord(value) {
@@ -46,13 +55,27 @@ class RainingViewManager {
 
   createWord(value) {
     const newWord = document.createElement('span');
+    newWord.setAttribute('class', 'word')
     newWord.innerText = value;
 
     return newWord
   }
 
-  randomPlace(e) {
-    e.style.left = `${(Math.floor(Math.random() * 90))}%`;
+  removeWord() {
+    for (let span of document.querySelectorAll('.word')) {
+      if (span.textContent !== this.input.value && this.input.value !== '') {
+        this.input.classList.add('error');
+      } else if (this.input.value === '') {
+        this.input.classList.remove('error');
+      } else if (span.textContent === this.input.value) {
+        span.remove();
+        this.resetInput();
+      } 
+    }
+  }
+
+  updateScore() {
+    document.querySelector('.score').innerText = this.model.score;
   }
 }
 
@@ -64,13 +87,25 @@ class GameController {
 
   startGame() {
     this.view.start.addEventListener('click', () => {
-      this.view.hiddenModal();
+      this.view.hiddenStartModal();
 
       const words = this.model.shuffleWords(this.model.words);
       for(let i = 0; i < words.length; i++) {
         (x => { 
           setTimeout(() => this.view.renderWord(words[x]), 2000 * x);
         })(i);
+      }
+
+      this.enterPressHandler();
+    })
+  }
+
+  enterPressHandler() {
+    this.view.input.addEventListener('keypress', (e) => {
+      if (e.keyCode == 13) {
+        this.view.removeWord();
+        this.model.score += 10;
+        this.view.updateScore();
       }
     })
   }
