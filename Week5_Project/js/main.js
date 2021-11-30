@@ -38,7 +38,7 @@ class RainingViewManager {
   }
 
   hiddenEndModal() {
-    this.endModal.classList.remove('end');
+    this.end.classList.remove('end');
   }
 
   randomPlace(e) {
@@ -82,6 +82,7 @@ class RainingViewManager {
       } else if (span.textContent === this.input.value) {
         span.remove();
         this.resetInput();
+        this.model.score += 10;
       } 
     }
   }
@@ -116,11 +117,10 @@ class GameController {
     this.view.input.addEventListener('keypress', (e) => {
       if (e.keyCode === 13) {
         this.view.removeWord();
-        this.model.score += 10;
         this.view.updateScore();
       }
 
-      if (this.model.score === 250) {
+      if (this.model.score === this.model.words.length * 10) {
         this.view.showWinModal();
         this.replayGame();
       };
