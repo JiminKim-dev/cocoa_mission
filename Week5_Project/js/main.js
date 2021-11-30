@@ -15,7 +15,6 @@ class DataManager {
     }
     return arr;
   };
-
 }
 
 class RainingViewManager {
@@ -26,8 +25,8 @@ class RainingViewManager {
     this.input = document.querySelector('.field-typing-area');
     this.field = document.querySelector('.field-raining');
 
-    this.width = this.field.offsetWidth;
-    this.height = this.field.offsetHeight;
+    this.end = document.querySelector('.game-over-modal'); 
+    this.replay = document.querySelector('.game-replay-btn');
   }
 
   resetInput() {
@@ -38,18 +37,31 @@ class RainingViewManager {
     document.querySelector('.game-start-modal').classList.add('start');
   }
 
+  hiddenEndModal() {
+    this.endModal.classList.remove('end');
+  }
+
   randomPlace(e) {
     e.style.left = `${(Math.floor(Math.random() * 90))}%`;
   }
 
-  renderWord(value) {
-    const addWord = this.createWord(value);
+  renderWord() {
+    const words = this.model.shuffleWords(this.model.words);
+      for(let i = 0; i < words.length; i++) {
+        (x => { 
+          setTimeout(() => this.addWord(words[x]), 2000 * x);
+        })(i);
+      }
+  }
 
-    this.randomPlace(addWord);
-    this.field.appendChild(addWord);
+  addWord(value) {
+    const newWord = this.createWord(value);
+
+    this.randomPlace(newWord);
+    this.field.appendChild(newWord);
 
     setTimeout(() => { 
-      addWord.classList.add('rain');
+      newWord.classList.add('rain');
     }, 2000);
   }
 
@@ -77,6 +89,13 @@ class RainingViewManager {
   updateScore() {
     document.querySelector('.score').innerText = this.model.score;
   }
+
+  showWinModal() {
+    this.end.classList.add('end');
+    this.end.children[0].innerText = "You Win 🎉"
+    document.querySelector('.end-score').innerText = this.model.score;
+  }
+
 }
 
 class GameController {
@@ -88,25 +107,31 @@ class GameController {
   startGame() {
     this.view.start.addEventListener('click', () => {
       this.view.hiddenStartModal();
-
-      const words = this.model.shuffleWords(this.model.words);
-      for(let i = 0; i < words.length; i++) {
-        (x => { 
-          setTimeout(() => this.view.renderWord(words[x]), 2000 * x);
-        })(i);
-      }
-
+      this.view.renderWord();
       this.enterPressHandler();
     })
   }
 
   enterPressHandler() {
     this.view.input.addEventListener('keypress', (e) => {
-      if (e.keyCode == 13) {
+      if (e.keyCode === 13) {
         this.view.removeWord();
         this.model.score += 10;
         this.view.updateScore();
       }
+
+      if (this.model.score === 250) {
+        this.view.showWinModal();
+        this.replayGame();
+      };
+    })
+  }
+
+  replayGame() {
+    this.view.replay.addEventListener('click', () => {
+      this.view.hiddenEndModal();
+      this.view.renderWord();
+      this.enterPressHandler();
     })
   }
 }
