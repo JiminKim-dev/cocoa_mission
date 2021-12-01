@@ -4,6 +4,7 @@ class DataManager {
   constructor() {
     this.words = wordData;
     this.score = 0;
+    this.life = 5;
   }
 
   shuffleWords = (arr) => {
@@ -21,24 +22,12 @@ class RainingViewManager {
   constructor(model) {
     this.model = model;
 
-    this.start = document.querySelector('.game-start-btn');
     this.input = document.querySelector('.field-typing-area');
     this.field = document.querySelector('.field-raining');
-
-    this.end = document.querySelector('.game-over-modal'); 
-    this.replay = document.querySelector('.game-replay-btn');
   }
 
   resetInput() {
     this.input.value = '';
-  }
-
-  hiddenStartModal() {
-    document.querySelector('.game-start-modal').classList.add('start');
-  }
-
-  hiddenEndModal() {
-    this.end.classList.remove('end');
   }
 
   randomPlace(e) {
@@ -87,8 +76,35 @@ class RainingViewManager {
     }
   }
 
+  countHeart() {
+    let showLife = document.querySelector('.life');
+    for (let i = 0; i < this.model.life; i++) {
+      showLife.innerText += '❤️';
+    }
+
+    return showLife
+  }
+
   updateScore() {
     document.querySelector('.score').innerText = this.model.score;
+  }
+}
+
+class ModalViewManager {
+  constructor(model) {
+    this.model = model;
+
+    this.start = document.querySelector('.game-start-btn');
+    this.end = document.querySelector('.game-over-modal'); 
+    this.replay = document.querySelector('.game-replay-btn');
+  }
+
+  hiddenStartModal() {
+    document.querySelector('.game-start-modal').classList.add('start');
+  }
+
+  hiddenEndModal() {
+    this.end.classList.remove('end');
   }
 
   showWinModal() {
@@ -96,47 +112,53 @@ class RainingViewManager {
     this.end.children[0].innerText = "You Win 🎉"
     document.querySelector('.end-score').innerText = this.model.score;
   }
-
 }
 
 class GameController {
-  constructor(model, view) {
+  constructor(model, rainingView, modalView) {
     this.model = model;
-    this.view = view;
+    this.rainingView = rainingView;
+    this.modalView = modalView;
+  }
+
+  init() {
+    this.rainingView.countHeart();
+    this.startGame();
   }
 
   startGame() {
-    this.view.start.addEventListener('click', () => {
-      this.view.hiddenStartModal();
-      this.view.renderWord();
+    this.modalView.start.addEventListener('click', () => {
+      this.modalView.hiddenStartModal();
+      this.rainingView.renderWord();
       this.enterPressHandler();
     })
   }
 
   enterPressHandler() {
-    this.view.input.addEventListener('keypress', (e) => {
+    this.rainingView.input.addEventListener('keypress', (e) => {
       if (e.keyCode === 13) {
-        this.view.removeWord();
-        this.view.updateScore();
+        this.rainingView.removeWord();
+        this.rainingView.updateScore();
       }
 
       if (this.model.score === this.model.words.length * 10) {
-        this.view.showWinModal();
+        this.modalView.showWinModal();
         this.replayGame();
       };
     })
   }
 
   replayGame() {
-    this.view.replay.addEventListener('click', () => {
-      this.view.hiddenEndModal();
-      this.view.renderWord();
+    this.modalView.replay.addEventListener('click', () => {
+      this.modalView.hiddenEndModal();
+      this.rainingView.renderWord();
       this.enterPressHandler();
     })
   }
 }
 
 const dataManager = new DataManager();
-const viewManager = new RainingViewManager(dataManager);
-const gameController = new GameController(dataManager, viewManager);
-gameController.startGame();
+const rainingViewManager = new RainingViewManager(dataManager);
+const modalViewManager = new ModalViewManager(dataManager)
+const gameController = new GameController(dataManager, rainingViewManager, modalViewManager);
+gameController.init();
