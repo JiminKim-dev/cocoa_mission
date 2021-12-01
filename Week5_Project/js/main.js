@@ -31,16 +31,16 @@ class RainingViewManager {
   }
 
   randomPlace(e) {
-    e.style.left = `${(Math.floor(Math.random() * 90))}%`;
+    e.style.left = `${Math.floor(Math.random() * 90)}%`;
   }
 
   renderWord() {
     const words = this.model.shuffleWords(this.model.words);
-      for(let i = 0; i < words.length; i++) {
-        (x => { 
-          setTimeout(() => this.addWord(words[x]), 2000 * x);
-        })(i);
-      }
+    for(let i = 0; i < words.length; i++) {
+      (x => { 
+        setTimeout(() => this.addWord(words[x]), 2000 * x);
+      })(i);
+    }
   }
 
   addWord(value) {
@@ -49,9 +49,7 @@ class RainingViewManager {
     this.randomPlace(newWord);
     this.field.appendChild(newWord);
 
-    setTimeout(() => { 
-      newWord.classList.add('rain');
-    }, 2000);
+    setTimeout(() => newWord.classList.add('rain'), 2000);
   }
 
   createWord(value) {
@@ -64,11 +62,11 @@ class RainingViewManager {
 
   removeWord() {
     for (let span of document.querySelectorAll('.word')) {
-      if (span.textContent !== this.input.value && this.input.value !== '') {
+      if (span.innerText !== this.input.value && this.input.value !== '') {
         this.input.classList.add('error');
       } else if (this.input.value === '') {
         this.input.classList.remove('error');
-      } else if (span.textContent === this.input.value) {
+      } else if (span.innerText === this.input.value) {
         span.remove();
         this.resetInput();
         this.model.score += 10;
@@ -76,7 +74,13 @@ class RainingViewManager {
     }
   }
 
+  resetHeart() {
+    const showLife = document.querySelector('.life');
+    showLife.innerText = '';
+  }
+
   countHeart() {
+    this.resetHeart();
     let showLife = document.querySelector('.life');
     for (let i = 0; i < this.model.life; i++) {
       showLife.innerText += '❤️';
@@ -91,8 +95,9 @@ class RainingViewManager {
 }
 
 class ModalViewManager {
-  constructor(model) {
+  constructor(model, modalView) {
     this.model = model;
+    this.modalView = modalView;
 
     this.start = document.querySelector('.game-start-btn');
     this.end = document.querySelector('.game-over-modal'); 
@@ -112,6 +117,11 @@ class ModalViewManager {
     this.end.children[0].innerText = "You Win 🎉"
     document.querySelector('.end-score').innerText = this.model.score;
   }
+
+  showOverModal() {
+    this.end.classList.add('end');
+    document.querySelector('.end-score').innerText = this.model.score;
+  }
 }
 
 class GameController {
@@ -119,6 +129,8 @@ class GameController {
     this.model = model;
     this.rainingView = rainingView;
     this.modalView = modalView;
+
+    this.timerId;
   }
 
   init() {
@@ -131,6 +143,8 @@ class GameController {
       this.modalView.hiddenStartModal();
       this.rainingView.renderWord();
       this.enterPressHandler();
+
+      this.timerId = setInterval(() => this.touchGround(), 300); 
     })
   }
 
@@ -139,20 +153,46 @@ class GameController {
       if (e.keyCode === 13) {
         this.rainingView.removeWord();
         this.rainingView.updateScore();
-      }
 
-      if (this.model.score === this.model.words.length * 10) {
-        this.modalView.showWinModal();
-        this.replayGame();
-      };
+        if (this.model.score === this.model.words.length * 10) this.perfectGame();
+      }
     })
+  }
+
+  touchGround() {
+    const fieldBottom = this.rainingView.field.getBoundingClientRect().bottom;
+
+    for (let child of this.rainingView.field.children) {
+      if (fieldBottom === child.getBoundingClientRect().bottom && this.model.life >= 1) {
+        --this.model.life;
+        this.rainingView.countHeart();
+        child.remove();
+      } else if (this.model.life === 0) {
+        this.overGame();
+      }
+    }
+  }
+  
+  overGame() {
+    clearInterval(this.timerId);
+
+    this.modalView.showOverModal();
+    this.replayGame();
+  }
+
+  perfectGame() {
+    this.modalView.showWinModal();
+    this.replayGame();
   }
 
   replayGame() {
     this.modalView.replay.addEventListener('click', () => {
-      this.modalView.hiddenEndModal();
-      this.rainingView.renderWord();
-      this.enterPressHandler();
+      // 임시방편
+      location.reload(); 
+
+      // this.modalView.hiddenEndModal();
+      // this.rainingView.renderWord();
+      // this.enterPressHandler();
     })
   }
 }
