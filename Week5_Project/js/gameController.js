@@ -62,11 +62,13 @@ export default class GameController {
   overGame() {
     this.stopTouchGroundTimer();
     this.modalView.showOverModal();
+    this.rainingView.disableInput();
     this.replayGame();
   }
 
   perfectGame() {
     this.modalView.showWinModal();
+    this.rainingView.disableInput();
     this.replayGame();
   }
 

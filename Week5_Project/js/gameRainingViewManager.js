@@ -7,6 +7,10 @@ export default class RainingViewManager {
     this.life = document.querySelector('.life');
   }
 
+  disableInput() {
+    return this.input.disabled = true;
+  }
+
   resetInput() {
     return this.input.value = '';
   }
