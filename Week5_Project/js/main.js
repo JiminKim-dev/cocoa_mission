@@ -9,10 +9,10 @@ class DataManager {
 
   shuffleWords = (arr) => {
     for (let i = this.words.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
+      const randomIndex = Math.floor(Math.random() * (i + 1));
       const temp = arr[i];
-      arr[i] = arr[j];
-      arr[j] = temp;
+      arr[i] = arr[randomIndex];
+      arr[randomIndex] = temp;
     }
     return arr;
   };
@@ -24,14 +24,15 @@ class RainingViewManager {
 
     this.input = document.querySelector('.field-typing-area');
     this.field = document.querySelector('.field-raining');
+    this.life = document.querySelector('.life');
   }
 
   resetInput() {
-    this.input.value = '';
+    return this.input.value = '';
   }
 
   randomPlace(e) {
-    e.style.left = `${Math.floor(Math.random() * 90)}%`;
+    return e.style.left = `${Math.floor(Math.random() * 90)}%`;
   }
 
   renderWord() {
@@ -75,18 +76,14 @@ class RainingViewManager {
   }
 
   resetHeart() {
-    const showLife = document.querySelector('.life');
-    showLife.innerText = '';
+    return this.life.innerText = '';
   }
 
   countHeart() {
     this.resetHeart();
-    let showLife = document.querySelector('.life');
     for (let i = 0; i < this.model.life; i++) {
-      showLife.innerText += '❤️';
+      this.life.innerText += '❤️';
     }
-
-    return showLife
   }
 
   updateScore() {
@@ -130,6 +127,7 @@ class GameController {
     this.rainingView = rainingView;
     this.modalView = modalView;
 
+    this.isPause = false;
     this.timerId;
   }
 
@@ -144,7 +142,7 @@ class GameController {
       this.rainingView.renderWord();
       this.enterPressHandler();
 
-      this.timerId = setInterval(() => this.touchGround(), 300); 
+      this.startTouchGroundTimer()
     })
   }
 
@@ -157,6 +155,17 @@ class GameController {
         if (this.model.score === this.model.words.length * 10) this.perfectGame();
       }
     })
+  }
+
+  startTouchGroundTimer() {
+    this.timerId = setInterval(() => {
+      if (this.isPause === false) this.touchGround();
+    }, 300); 
+  }
+
+  stopTouchGroundTimer() {
+    clearInterval(this.timerId);
+    this.isPause = true;
   }
 
   touchGround() {
@@ -174,8 +183,7 @@ class GameController {
   }
   
   overGame() {
-    clearInterval(this.timerId);
-
+    this.stopTouchGroundTimer();
     this.modalView.showOverModal();
     this.replayGame();
   }
