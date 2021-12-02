@@ -15,22 +15,29 @@
       <p>SCORE: <span class="score">0</span></p>
       <p>LIFE: <span class="life"></span></p>
     </div>
-
+    
     <div class="field-raining"></div>
-
+    
     <input type="text" class="field-typing-area" placeholder="으아아 떨어진다...!">
   </main>
-
+  
   <div class="game-start-modal">
     <h1>산성비가 내려와</h1>
     <p>▼▼ CLICK ▼▼</p>
     <button type="button" class="game-start-btn">GAME START</button>
   </div>
-
+  
   <div class="game-over-modal">
     <h1>GAME OVER</h1>
     <p>your score: <span class="end-score">0</span></p>
     <button type="button" class="game-replay-btn">REPLAY?</button>
+  </div>
+  
+  <div class="sound-container">
+    <audio id="startSound" src="./assets/match.m4a"></audio>
+    <audio id="mismacth" src="./assets/mismatch.m4a"></audio>
+    <audio id="gameOverSound" src="./assets/gameOver.m4a"></audio>
+    <audio id="gameWinSound" src="./assets/gameWin.m4a"></audio>
   </div>
   
   <script type="module" src="./js/main.js"></script>
