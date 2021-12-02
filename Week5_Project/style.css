@@ -68,7 +68,7 @@ body {
 
 .rain {
   transform: translateY(485px);
-  transition: transform 20s ease-in-out;
+  transition: transform 20s ease-in;
 }
 
 .field-typing-area {

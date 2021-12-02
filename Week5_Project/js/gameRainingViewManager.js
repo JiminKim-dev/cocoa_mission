@@ -24,7 +24,7 @@ export default class RainingViewManager {
     const words = this.model.shuffleWords(this.model.words);
     for(let i = 0; i < words.length; i++) {
       (x => { 
-        setTimeout(() => this.addWord(words[x]), 2000 * x);
+        setTimeout(() => this.addWord(words[x]), 3000 * x);
       })(i);
     }
   }
@@ -35,7 +35,7 @@ export default class RainingViewManager {
     this.randomPlace(newWord);
     this.field.appendChild(newWord);
 
-    setTimeout(() => newWord.classList.add('rain'), 2000);
+    setTimeout(() => newWord.classList.add('rain'), 100);
   }
 
   createWord(value) {
