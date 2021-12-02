@@ -92,6 +92,10 @@ body {
   color: red;
 }
 
+.field-typing-area:disabled::placeholder {
+  color: transparent;
+}
+
 /* modal */
 .game-start-modal, .game-over-modal {
   position: fixed;
