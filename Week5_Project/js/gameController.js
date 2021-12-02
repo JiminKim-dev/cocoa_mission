@@ -1,8 +1,9 @@
 export default class GameController {
-  constructor(model, rainingView, modalView) {
+  constructor(model, rainingView, modalView, sound) {
     this.model = model;
     this.rainingView = rainingView;
     this.modalView = modalView;
+    this.sound = sound;
 
     this.isPause = false;
     this.timerId;
@@ -15,11 +16,12 @@ export default class GameController {
 
   startGame() {
     this.modalView.start.addEventListener('click', () => {
+      this.sound.matchSound();
       this.modalView.hiddenStartModal();
       this.rainingView.renderWord();
       this.enterPressHandler();
 
-      this.startTouchGroundTimer()
+      this.startTouchGroundTimer();
     })
   }
 
@@ -52,6 +54,7 @@ export default class GameController {
       if (fieldBottom === child.getBoundingClientRect().bottom && this.model.life >= 1) {
         --this.model.life;
         this.rainingView.countHeart();
+        this.sound.mismatchSound();
         child.remove();
       } else if (this.model.life === 0) {
         this.overGame();
@@ -60,6 +63,7 @@ export default class GameController {
   }
   
   overGame() {
+    this.sound.gameOverSound();
     this.stopTouchGroundTimer();
     this.modalView.showOverModal();
     this.rainingView.disableInput();
@@ -67,6 +71,7 @@ export default class GameController {
   }
 
   perfectGame() {
+    this.sound.gameWinSound();
     this.modalView.showWinModal();
     this.rainingView.disableInput();
     this.replayGame();

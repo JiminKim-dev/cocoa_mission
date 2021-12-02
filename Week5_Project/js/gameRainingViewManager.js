@@ -1,6 +1,7 @@
 export default class RainingViewManager {
-  constructor(model) {
+  constructor(model, sound) {
     this.model = model;
+    this.sound = sound;
 
     this.input = document.querySelector('.field-typing-area');
     this.field = document.querySelector('.field-raining');
@@ -48,14 +49,16 @@ export default class RainingViewManager {
   removeWord() {
     for (let span of document.querySelectorAll('.word')) {
       if (span.innerText !== this.input.value && this.input.value !== '') {
-        this.input.classList.add('error');
-      } else if (this.input.value === '') {
-        this.input.classList.remove('error');
+        this.sound.mismatchSound();
+        setTimeout(() => this.resetInput(), 100);
       } else if (span.innerText === this.input.value) {
+        this.sound.matchSound();
         span.remove();
         this.resetInput();
         this.model.score += 10;
-      } 
+      } else if (this.input.value === '') {
+        this.sound.mismatch.pause();
+      }
     }
   }
 
