@@ -11,7 +11,8 @@ https://jiminkim-dev.github.io/cocoa_mission/Week5_Project/index.html
 - [x] 일치하지 않는 단어 입력시 입력창 리셋
 - [x] 바닥에 단어가 닿으면 단어가 사라지고 life의 하트가 감소
 - [x] 하트를 모두 소진한 경우 게임 오버창이 뜸
-- [x] 모두 맞췄을 경우 게임 오버가 아닌 You Win창이 뜸
+- [x] 단어가 더이상 남아있지 않고 하트는 남아있을 경우 게임 승리창이 뜸
+- [x] 단어를 모두 맞췄을 경우 perfect score창이 뜸
 
 ### 언젠가는 추가할 기능
 - [ ] 다음 스테이지 
