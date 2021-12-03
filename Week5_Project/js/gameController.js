@@ -31,7 +31,13 @@ export default class GameController {
         this.rainingView.removeWord();
         this.rainingView.updateScore();
 
-        if (this.model.score === this.model.words.length * 10) this.perfectGame();
+        const perfectScore = this.model.words.length * 10;
+        if (this.rainingView.field.innerHTML === '' && this.model.score !== perfectScore) {
+          this.winGame();
+        } else if (this.model.score === perfectScore) {
+          this.perfectGame();
+        }
+
       }
     })
   }
@@ -63,14 +69,21 @@ export default class GameController {
   }
   
   overGame() {
-    this.sound.gameOverSound();
     this.stopTouchGroundTimer();
+    this.sound.gameOverSound();
     this.modalView.showOverModal();
     this.rainingView.disableInput();
     this.replayGame();
   }
 
   perfectGame() {
+    this.sound.gameWinSound();
+    this.modalView.showPerfectModal();
+    this.rainingView.disableInput();
+    this.replayGame();
+  }
+  
+  winGame() {
     this.sound.gameWinSound();
     this.modalView.showWinModal();
     this.rainingView.disableInput();
