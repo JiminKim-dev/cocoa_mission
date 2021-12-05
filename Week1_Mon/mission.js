@@ -5,21 +5,19 @@ const record = [];
 function getArea(shape, ...size) {
   let result = '';
   switch (shape) {
-    case 'circle':
+    case '원':
       if (size[1] !== undefined) {
         result = getIncreaseCircleArea(...size);
         break;
       }
       result = getCircleArea(...size); 
       break;
-    case 'rect':
+    case '사각형':
       result = getRectangleArea(...size);
       break;
-    case 'trapezoid':
+    case '사다리꼴':
       result = getTrapezoidArea(...size);
       break;
-    default:
-      return console.log('원, 사각형, 사다리꼴의 넓이만 구할 수 있습니다.'); 
   }
 
   record.push(`${shape} ${result}`);
@@ -61,10 +59,16 @@ function printExecutionSequence() {
   });
 }
 
-// 함수 출력
-getArea('circle', 10);
-getArea('rect', 10, 15);
-getArea('trapezoid', 10, 15, 12);
-getArea('circle', 2, 3);
-getArea('star', 2)
-printExecutionSequence();
+// test
+// getArea('circle', 10);
+// getArea('rect', 10, 15);
+// getArea('trapezoid', 10, 15, 12);
+// getArea('circle', 2, 3);
+// getArea('star', 2)
+// printExecutionSequence();
+
+exports.getArea = getArea;
+exports.getCircleArea = getCircleArea;
+exports.getIncreaseCircleArea = getIncreaseCircleArea;
+exports.getRectangleArea = getRectangleArea;
+exports.getTrapezoidArea = getTrapezoidArea;
