@@ -7,8 +7,8 @@
 |날짜|미션 완료 여부|스터디 로그|
 |----|---------|--------|
 1주차(월)| 추가미션까지 완료 ✅ | ✏️ [깃허브](https://github.com/JiminKim-dev/cocoa_mission/blob/master/Week1_Mon/README.md) |
-1주차(수)| 미션1-문제1 ✅ 문제2 ❌ , 미션2- 모두 완료 ✅ | ✏️ [깃허브](https://github.com/JiminKim-dev/cocoa_mission/blob/master/Week1_Wed/README.md) |
-2주차(월)| map 객체와 비슷하게 구현 ✅ , 해시함수를 사용한 해시테이블 구현 ❌ | ✏️ [노션](https://cypress-pink-680.notion.site/2-4118c0d8f0604762814928841f5c86cf) |
+1주차(수)| 미션1-문제1 ✅ 문제2 ✅ , 미션2- 모두 완료 ✅ | ✏️ [깃허브](https://github.com/JiminKim-dev/cocoa_mission/blob/master/Week1_Wed/README.md) |
+2주차(월)| map 객체와 비슷하게 구현 ✅ , 해시함수를 사용한 해시테이블 구현 ✅ | ✏️ [노션](https://cypress-pink-680.notion.site/2-4118c0d8f0604762814928841f5c86cf) |
 2주차(수)|요구사항 1 ✅. 요구사항 2, 3 ❌| |
 3주차(월)| 문제1 ✅ 문제2 ❌ | ✏️ [노션](https://cypress-pink-680.notion.site/3-45e978497d6040328a04d1c2a727f2e6)|
 3주차(수)| 투두리스트 ✅ 일부 기능 ❌| ✏️ [노션](https://cypress-pink-680.notion.site/3-0167a41e11d84170826316ff4076a91a)|
@@ -18,6 +18,12 @@
 
 
 2주차(수)의 스터디로그는 미션 내용이 많이 언급되어서 링크를 업로드 하지 않았다!
+
+### ✏️ 다시 풀어본 미션
+|날짜| 해결한 미션|
+|---|---|
+|21.12.10| 2주차(월): 해시함수를 사용한 해시테이블 구현 완료
+|21.12.16| 1주차(수): 미션1의 문제2 구현 완료
 
 
 ## 💪 새로운 목표
