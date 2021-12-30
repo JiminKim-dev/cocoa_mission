@@ -15,11 +15,12 @@ class DropdownController {
 
   showFruitMenu() {
     this.showMenu.addEventListener('mouseenter', () => {
-      this.debounceTimer = setTimeout(() => this.menu.classList.toggle('show'), 1000);
+      this.debounceTimer = setTimeout(() => this.menu.classList.add('show'), 1000);
     });
 
-    this.showMenu.addEventListener('mouseleave', () => {
+    this.menu.addEventListener('mouseleave', () => {
       clearTimeout(this.debounceTimer);
+      this.debounceTimer = setTimeout(() => this.menu.classList.remove('show'), 500);
     });
   }
 
