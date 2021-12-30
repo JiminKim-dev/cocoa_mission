@@ -28,16 +28,26 @@ class DropdownController {
     this.menu.addEventListener('mousemove', (e) => {
       if (!this.trottleTimer) {
         this.trottleTimer = setTimeout(() => {
-          this.renderCountFruits(e)
+          this.renderCountFruits(e.target.id);
           this.trottleTimer = null;
-        }, 500)
+        }, 500);
       }
-    })
+    });
   }
 
-  renderCountFruits(e) {
-    // 마우스가 움직일때마다 카운트하는 UI 추가
-    console.log(e.target.id);
+  renderCountFruits(fruitId) {
+    const fruit = document.querySelector(`.${fruitId}`);
+    !fruit ? this.createFruitList(fruitId) : fruit.lastChild.textContent++;
+  }
+
+  createFruitList(fruit) {
+    const newFruit = document.createElement('div');
+    newFruit.classList.add(fruit);
+    newFruit.innerHTML = 
+    `<span>${fruit}: </span>
+    <span>1</span>`;
+
+    this.countFruits.appendChild(newFruit);
   }
 }
 
