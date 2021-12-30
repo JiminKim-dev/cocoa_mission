@@ -13,7 +13,7 @@
 3주차(월)| 문제1 ✅ 문제2 ❌ | ✏️ [노션](https://cypress-pink-680.notion.site/3-45e978497d6040328a04d1c2a727f2e6)|
 3주차(수)| 투두리스트 ✅ 일부 기능 ❌| ✏️ [노션](https://cypress-pink-680.notion.site/3-0167a41e11d84170826316ff4076a91a)|
 4주차(월)| 향상된 투두리스트 ✅ | ✏️ [노션](https://cypress-pink-680.notion.site/4-6ea4e9cbf90948deb5aa594561e954cc)|
-4주차(수)| 스마트 드롭다운 메뉴: 문제1 ✅, 문제2 ❌ | |
+4주차(수)| 스마트 드롭다운 메뉴: 문제1 ✅, 문제2 ✅ | |
 5주차| 내맘대로 프로젝트: [산성비 게임](https://jiminkim-dev.github.io/cocoa_mission/Week5_Project/index.html) ✅ | ✏️ [노션](https://cypress-pink-680.notion.site/5-061900a4857e4c599c102da27d08be09)|
 
 
@@ -24,6 +24,7 @@
 |---|---|
 |21.12.10| 2주차(월): 해시함수를 사용한 해시테이블 구현 완료
 |21.12.16| 1주차(수): 미션1의 문제2 구현 완료
+|21.12.30| 4주차(수): 문제2 구현 완료
 
 
 ## 💪 새로운 목표
