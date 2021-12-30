@@ -34,7 +34,7 @@ body {
 }
 
 .dropdown-menu {
-  visibility: hidden;
+  display: none;
   margin-bottom: 8px;
   width: 220px;
   border: 1px solid rgb(208, 208, 208);
@@ -43,7 +43,7 @@ body {
 }
 
 .dropdown-menu.show {
-  visibility: visible;
+  display: block;
 }
 
 .dropdown-item {
@@ -65,14 +65,6 @@ body {
   border-radius: 0 0 8px 8px;
 }
 
-.count-fruits {
-  visibility: hidden;
-  width: 100%;
-  padding: 12px;
-  text-align: left;
-}
-
-
-.count-fruits.show {
-  visibility: visible;
+.count-fruits > div {
+  padding: 8px;
 }
